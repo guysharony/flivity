@@ -1,0 +1,15 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "include": ["stacks", "services"],
+	"compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+		"paths": {
+			"@web/*": ["./web/*"],
+			"@stacks/*": ["./stacks/*"],
+			"@services/*": ["./services/*"]
+		}
+  }
+}

@@ -1,6 +1,3 @@
-import { Entity } from "aws-sdk/clients/costexplorer";
-import { OrmRepositoryBase } from "./orm.repository.base";
-
 export interface CreateEntityProps<T> {
   id: string;
   props: T;

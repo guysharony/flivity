@@ -49,7 +49,7 @@ const withProtection = <T extends Record<string, any>>(
 				return;
 			}
 
-			if (mustAuthenticated === false && isAuthentiated === true) {
+			if ((mustAuthenticated === false && isAuthentiated === true) || (mustConfigured === false && isConfigured === true)) {
 				navigate("/");
 				return;
 			}

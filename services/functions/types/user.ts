@@ -19,6 +19,8 @@ import { UpdateUserEmailVerifiedService } from "@services/core/user/commands/upd
 import { SetupUserCommand } from "@services/core/user/commands/setup-user/setup-user.command";
 import { SetupUserService } from "@services/core/user/commands/setup-user/setup-user.service";
 import { UserEntity } from "@services/core/user/entity/user.entity";
+import { FindUserByUsernameService } from "@services/core/user/queries/find-user-by-username/find-user-by-username.service";
+import { FindUserByUsernameQuery } from "@services/core/user/queries/find-user-by-username/find-user-by-username.query";
 
 export const userRouter = t.router({
   findById: t.procedure
@@ -57,6 +59,33 @@ export const userRouter = t.router({
 
       const query = new FindUserByEmailQuery({
         email: email,
+      });
+
+      const result = await service.handler(query);
+
+      return match(result, {
+        Ok: (user: UserEntity) => new UserResponse(user),
+        Err: (error: Error) => {
+          if (error instanceof ExceptionBase) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: error.message,
+            });
+          }
+
+          throw error;
+        },
+      });
+    }),
+  findByUsername: t.procedure
+    .input(z.object({ username: z.string() }))
+    .query(async (req) => {
+      const { username } = req.input;
+
+      const service = new FindUserByUsernameService();
+
+      const query = new FindUserByUsernameQuery({
+        username: username,
       });
 
       const result = await service.handler(query);

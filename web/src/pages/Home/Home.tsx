@@ -20,7 +20,7 @@ export default function Home() {
 			{
 				user.data &&
 				<div>
-					<span>{`name: ${user.data.name}`}</span>
+					<span>{`name: ${user.data.displayName}`}</span>
 				</div>
 			}
 		</div>

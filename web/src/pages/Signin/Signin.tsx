@@ -34,7 +34,7 @@ export default function Signin() {
 
 	return (
 		<div className='flex flex-col justify-center items-center mx-auto max-w-md h-full'>
-			<div className='w-full'>
+			<div className='w-full text-center'>
 				<div className='mb-10'>
 					<span className='text-3xl text-slate-900'>Sign in</span>
 				</div>

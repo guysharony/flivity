@@ -10,6 +10,7 @@ import Home from './pages/Home/Home';
 import Signin from './pages/Signin/Signin';
 import Signup from './pages/Signup/Signup';
 import AccountConfiguration from './pages/AccountConfiguration/AccountConfiguration';
+import Profile from './pages/Profile/Profile';
 
 const router = createBrowserRouter([
 	{
@@ -29,9 +30,13 @@ const router = createBrowserRouter([
 				element: <AccountConfiguration />
 			},
 			{
+				path: '/:username',
+				element: <Profile />,
+			},
+			{
 				path: '/',
 				element: <Home />,
-			},
+			}
 		],
 	},
 ]);

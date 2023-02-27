@@ -13,8 +13,6 @@ const AccountConfiguration = () => {
 	const navigate = useNavigate();
 	const context = useOutletContext<ISession>();
 
-	console.log(context.id);
-
 	const [loading, setLoading] = useState<boolean>(false);
 	const [form, setForm] = useState<Form>({
 		values: {

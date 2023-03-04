@@ -2,16 +2,14 @@ import {
   Certificate,
   CertificateProps,
 } from "aws-cdk-lib/aws-certificatemanager";
-import { App } from "sst/constructs";
+import { App, Stack } from "sst/constructs";
 
-interface IDnsValidateCertificate extends CertificateProps {
+interface IDnsCertificate extends CertificateProps {
   region?: string;
 }
 
-export class DnsCertificate extends Certificate {
-  constructor(scope: App, id: string, props: IDnsValidateCertificate) {
-    const { region = scope.region, ...certificateProps } = props;
+export function dnsCertificate(scope: App, id: string, props: IDnsCertificate) {
+  const { region = scope.region, ...certificateProps } = props;
 
-    super(new App({ ...scope, region }), id, certificateProps);
-  }
+  return new Certificate(new App({ ...scope, region }), id, certificateProps);
 }

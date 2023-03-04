@@ -1,9 +1,4 @@
-import {
-  use,
-  StackContext,
-  Api as ApiGateway,
-  Auth,
-} from "sst/constructs";
+import { use, StackContext, Api as ApiGateway, Auth } from "sst/constructs";
 import * as iam from "aws-cdk-lib/aws-iam";
 
 import { DatabaseStack } from "./DatabaseStack";
@@ -33,15 +28,7 @@ export function ApiStack({ stack, app }: StackContext) {
           REACT_APP_URL: currentDomain,
           REACT_APP_API_URL: apiCustomDomain,
         },
-        permissions: [
-          new iam.PolicyStatement({
-            actions: ["ses:SendEmail"],
-            effect: iam.Effect.ALLOW,
-            resources: [
-              `arn:aws:ses:${stack.region}:${stack.account}:identity/*`,
-            ],
-          }),
-        ],
+        permissions: ["ses"],
       },
     },
     routes: {

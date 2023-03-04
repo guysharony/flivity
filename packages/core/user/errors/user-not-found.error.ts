@@ -1,4 +1,4 @@
-import { ExceptionBase } from "@services/libs/base/exceptions/exception.base";
+import { ExceptionBase } from "@packages/libs/base/exceptions/exception.base";
 
 export class UserNotFoundError extends ExceptionBase {
   public readonly code = "USER.NOT_FOUND";

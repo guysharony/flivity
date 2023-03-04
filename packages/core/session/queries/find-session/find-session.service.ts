@@ -1,6 +1,6 @@
 import { Ok, Result, Err } from "oxide.ts";
 
-import { QueryService } from "@services/libs/base/queries/query.base-service";
+import { QueryService } from "@packages/libs/base/queries/query.base-service";
 
 import { SessionRepository } from "../../database/session.repository";
 

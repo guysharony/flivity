@@ -1,7 +1,7 @@
 import { awsLambdaRequestHandler } from "@trpc/server/adapters/aws-lambda";
 
-import { t } from "@services/libs/trpc/router";
-import { createContext } from "@services/libs/trpc/context";
+import { t } from "@packages/libs/trpc/router";
+import { createContext } from "@packages/libs/trpc/context";
 
 import { userRouter } from "./types/user";
 import { sessionRouter } from "./types/session";

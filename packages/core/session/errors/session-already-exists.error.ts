@@ -1,4 +1,4 @@
-import { ExceptionBase } from "@services/libs/base/exceptions/exception.base";
+import { ExceptionBase } from "@packages/libs/base/exceptions/exception.base";
 
 export class SessionAlreadyExistsError extends ExceptionBase {
   public readonly code = "SESSION.ALREADY_EXISTS";

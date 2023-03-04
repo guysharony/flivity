@@ -1,7 +1,7 @@
 import {
   Command,
   CommandProps,
-} from "@services/libs/base/commands/command.base";
+} from "@packages/libs/base/commands/command.base";
 
 export class CreateSessionCommand extends Command {
   constructor(props: CommandProps<CreateSessionCommand>) {

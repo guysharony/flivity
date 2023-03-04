@@ -1,4 +1,4 @@
-import { Query, QueryProps } from "@services/libs/base/queries/query.base";
+import { Query, QueryProps } from "@packages/libs/base/queries/query.base";
 
 export class FindUserByIdQuery extends Query {
   constructor(props: FindUserByIdQuery) {

@@ -1,5 +1,5 @@
 import { ApiHandler, useCookie } from "@serverless-stack/node/api";
-import { JWT } from "@services/libs/base/hash/jwt.hash";
+import { JWT } from "@packages/libs/base/hash/jwt.hash";
 import { trpc } from "./trpc";
 
 export const handler = ApiHandler(async () => {

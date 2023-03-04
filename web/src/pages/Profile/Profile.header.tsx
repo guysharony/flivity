@@ -1,4 +1,4 @@
-import { UserResponse } from "@services/core/user/dtos/user-response.dto";
+import { UserResponse } from "@packages/core/user/dtos/user-response.dto";
 
 interface IProfileHeader {
 	user: Required<UserResponse>;

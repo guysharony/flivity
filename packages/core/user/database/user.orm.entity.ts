@@ -1,4 +1,4 @@
-import { OrmEntityBase } from "@services/libs/base/classes/orm.entity.base";
+import { OrmEntityBase } from "@packages/libs/base/classes/orm.entity.base";
 
 export class UserOrmEntity extends OrmEntityBase {
   constructor(props?: UserOrmEntity) {

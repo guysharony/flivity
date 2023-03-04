@@ -2,25 +2,25 @@ import { z, ZodError } from "zod";
 import { match, Ok, Result } from "oxide.ts";
 import { TRPCError } from "@trpc/server";
 
-import { t } from "@services/libs/trpc/router";
-import { IDResponse } from "@services/libs/responses/id/id.response";
-import { BooleanResponse } from "@services/libs/responses/boolean/boolean.response";
-import { UserResponse } from "@services/core/user/dtos/user-response.dto";
-import { UserOrmEntity } from "@services/core/user/database/user.orm.entity";
-import { ExceptionBase } from "@services/libs/base/exceptions/exception.base";
-import { CreateUserCommand } from "@services/core/user/commands/create-user/create-user.command";
-import { CreateUserService } from "@services/core/user/commands/create-user/create-user.service";
-import { FindUserByIdQuery } from "@services/core/user/queries/find-user-by-id/find-user-by-id.query";
-import { FindUserByIdService } from "@services/core/user/queries/find-user-by-id/find-user-by-id.service";
-import { FindUserByEmailService } from "@services/core/user/queries/find-user-by-email/find-user-by-email.service";
-import { FindUserByEmailQuery } from "@services/core/user/queries/find-user-by-email/find-user-by-email.query";
-import { UpdateUserEmailVerifiedCommand } from "@services/core/user/commands/update-user-emailVerified/update-user-emailVerified.command";
-import { UpdateUserEmailVerifiedService } from "@services/core/user/commands/update-user-emailVerified/update-user-emailVerified.service";
-import { SetupUserCommand } from "@services/core/user/commands/setup-user/setup-user.command";
-import { SetupUserService } from "@services/core/user/commands/setup-user/setup-user.service";
-import { UserEntity } from "@services/core/user/entity/user.entity";
-import { FindUserByUsernameService } from "@services/core/user/queries/find-user-by-username/find-user-by-username.service";
-import { FindUserByUsernameQuery } from "@services/core/user/queries/find-user-by-username/find-user-by-username.query";
+import { t } from "@packages/libs/trpc/router";
+import { IDResponse } from "@packages/libs/responses/id/id.response";
+import { BooleanResponse } from "@packages/libs/responses/boolean/boolean.response";
+import { UserResponse } from "@packages/core/user/dtos/user-response.dto";
+import { UserOrmEntity } from "@packages/core/user/database/user.orm.entity";
+import { ExceptionBase } from "@packages/libs/base/exceptions/exception.base";
+import { CreateUserCommand } from "@packages/core/user/commands/create-user/create-user.command";
+import { CreateUserService } from "@packages/core/user/commands/create-user/create-user.service";
+import { FindUserByIdQuery } from "@packages/core/user/queries/find-user-by-id/find-user-by-id.query";
+import { FindUserByIdService } from "@packages/core/user/queries/find-user-by-id/find-user-by-id.service";
+import { FindUserByEmailService } from "@packages/core/user/queries/find-user-by-email/find-user-by-email.service";
+import { FindUserByEmailQuery } from "@packages/core/user/queries/find-user-by-email/find-user-by-email.query";
+import { UpdateUserEmailVerifiedCommand } from "@packages/core/user/commands/update-user-emailVerified/update-user-emailVerified.command";
+import { UpdateUserEmailVerifiedService } from "@packages/core/user/commands/update-user-emailVerified/update-user-emailVerified.service";
+import { SetupUserCommand } from "@packages/core/user/commands/setup-user/setup-user.command";
+import { SetupUserService } from "@packages/core/user/commands/setup-user/setup-user.service";
+import { UserEntity } from "@packages/core/user/entity/user.entity";
+import { FindUserByUsernameService } from "@packages/core/user/queries/find-user-by-username/find-user-by-username.service";
+import { FindUserByUsernameQuery } from "@packages/core/user/queries/find-user-by-username/find-user-by-username.query";
 
 export const userRouter = t.router({
   findById: t.procedure

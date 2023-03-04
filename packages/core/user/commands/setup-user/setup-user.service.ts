@@ -1,6 +1,6 @@
 import { Err, Ok, Result } from "oxide.ts";
 
-import { CommandService } from "@services/libs/base/commands/command.base-service";
+import { CommandService } from "@packages/libs/base/commands/command.base-service";
 
 import { UserRepository } from "../../database/user.repository";
 

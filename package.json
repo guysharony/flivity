@@ -20,7 +20,8 @@
     "vitest": "^0.25.8"
   },
   "dependencies": {
-    "@serverless-stack/node": "^1.18.4",
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
     "@tanstack/react-query": "^4.24.10",
     "@trpc/client": "^10.14.0",
     "@trpc/react-query": "^10.14.0",
@@ -34,6 +35,8 @@
     "nock": "^13.3.0",
     "oxide.ts": "^1.1.0",
     "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "zod": "^3.20.6"
   },
   "workspaces": [

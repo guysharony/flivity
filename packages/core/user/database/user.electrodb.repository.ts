@@ -1,7 +1,7 @@
 import { Entity } from "electrodb";
 
-import { Dynamo } from "@services/core/dynamo";
-import { ElectroDBRepository } from "@services/libs/base/classes/electrodb.repository";
+import { Dynamo } from "@packages/core/dynamo";
+import { ElectroDBRepository } from "@packages/libs/base/classes/electrodb.repository";
 
 import { UserOrmEntity } from "./user.orm.entity";
 

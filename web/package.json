@@ -3,21 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@tanstack/react-query": "^4.20.4",
+    "@babel/core": "^7.21.0",
+    "@babel/plugin-syntax-flow": "^7.18.6",
+    "@babel/plugin-transform-react-jsx": "^7.21.0",
+    "@tanstack/react-query": "^4.24.10",
+    "@testing-library/dom": "^9.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@trpc/client": "^10.5.0",
-    "@trpc/react-query": "^10.5.0",
-    "@trpc/server": "^10.5.0",
+    "@trpc/client": "^10.14.0",
+    "@trpc/react-query": "^10.14.0",
+    "@trpc/server": "^10.14.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.12",
+    "@types/node": "^16.18.14",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/uuid": "^9.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1",
+    "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "uuid": "^9.0.0",
@@ -49,6 +53,7 @@
     ]
   },
   "devDependencies": {
-    "@serverless-stack/static-site-env": "^1.18.4"
+    "constructs": "10.1.156",
+    "sst": "~2.1.6"
   }
 }

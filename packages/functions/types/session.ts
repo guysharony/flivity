@@ -2,19 +2,19 @@ import { z, ZodError } from "zod";
 import { match } from "oxide.ts";
 import { TRPCError } from "@trpc/server";
 
-import { t } from "@services/libs/trpc/router";
-import { IDResponse } from "@services/libs/responses/id/id.response";
-import { ExceptionBase } from "@services/libs/base/exceptions/exception.base";
-import { CreateSessionCommand } from "@services/core/session/commands/create-session/create-session.command";
-import { CreateSessionService } from "@services/core/session/commands/create-session/create-session.service";
-import { FindSessionService } from "@services/core/session/queries/find-session/find-session.service";
-import { FindSessionQuery } from "@services/core/session/queries/find-session/find-session.query";
-import { SessionResponse } from "@services/core/session/dtos/session-response.dto";
-import { FindSessionByIdService } from "@services/core/session/queries/find-session-by-id/find-session-by-id.service";
-import { FindSessionByIdQuery } from "@services/core/session/queries/find-session-by-id/find-session-by-id.query";
-import { DeleteSessionCommand } from "@services/core/session/commands/delete-token/delete-session.command";
-import { DeleteSessionService } from "@services/core/session/commands/delete-token/create-session.service";
-import { SessionEntity } from "@services/core/session/entity/session.entity";
+import { t } from "@packages/libs/trpc/router";
+import { IDResponse } from "@packages/libs/responses/id/id.response";
+import { ExceptionBase } from "@packages/libs/base/exceptions/exception.base";
+import { CreateSessionCommand } from "@packages/core/session/commands/create-session/create-session.command";
+import { CreateSessionService } from "@packages/core/session/commands/create-session/create-session.service";
+import { FindSessionService } from "@packages/core/session/queries/find-session/find-session.service";
+import { FindSessionQuery } from "@packages/core/session/queries/find-session/find-session.query";
+import { SessionResponse } from "@packages/core/session/dtos/session-response.dto";
+import { FindSessionByIdService } from "@packages/core/session/queries/find-session-by-id/find-session-by-id.service";
+import { FindSessionByIdQuery } from "@packages/core/session/queries/find-session-by-id/find-session-by-id.query";
+import { DeleteSessionCommand } from "@packages/core/session/commands/delete-token/delete-session.command";
+import { DeleteSessionService } from "@packages/core/session/commands/delete-token/create-session.service";
+import { SessionEntity } from "@packages/core/session/entity/session.entity";
 
 export const sessionRouter = t.router({
   findById: t.procedure

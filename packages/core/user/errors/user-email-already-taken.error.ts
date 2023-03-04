@@ -1,4 +1,4 @@
-import { ExceptionBase } from "@services/libs/base/exceptions/exception.base";
+import { ExceptionBase } from "@packages/libs/base/exceptions/exception.base";
 
 export class UserEmailAddressAlreadyTaken extends ExceptionBase {
   public readonly code = "USER.EMAIL_ALREADY_TAKEN";

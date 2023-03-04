@@ -2,7 +2,7 @@ import { None, Option, Some } from "oxide.ts";
 
 import { SessionOrmEntity } from "./session.orm.entity";
 import { SessionElectroDBRepository } from "./session.electrodb.repository";
-import { OrmRepositoryBase } from "@services/libs/base/classes/orm.repository.base";
+import { OrmRepositoryBase } from "@packages/libs/base/classes/orm.repository.base";
 import { SessionEntity } from "../entity/session.entity";
 import { SessionOrmProperty } from "./session.orm.property";
 import { SessionDomainProperty } from "./session.domain.property";

@@ -1,4 +1,4 @@
-import { StackContext } from "@serverless-stack/resources";
+import { StackContext } from "sst/constructs";
 import {
   DnsValidatedCertificate,
   ICertificate,
@@ -27,7 +27,7 @@ export function DnsStack({ stack, app }: StackContext) {
         subjectAlternativeNames: [`*.${hostedZoneName}`],
       }
     );
-    // cert in us-east-1, required for cloudfront, cognito
+
     certificateGlobal =
       app.region === "us-east-1"
         ? certificateRegional

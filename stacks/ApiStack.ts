@@ -3,7 +3,7 @@ import {
   StackContext,
   Api as ApiGateway,
   Auth,
-} from "@serverless-stack/resources";
+} from "sst/constructs";
 import * as iam from "aws-cdk-lib/aws-iam";
 
 import { DatabaseStack } from "./DatabaseStack";

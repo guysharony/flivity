@@ -1,4 +1,4 @@
-import { use, StaticSite, StackContext } from "@serverless-stack/resources";
+import { use, StaticSite, StackContext } from "sst/constructs";
 
 import { ApiStack } from "./ApiStack";
 import { DnsStack } from "./DnsStack";

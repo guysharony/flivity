@@ -1,67 +1,66 @@
 lockfileVersion: 5.4
 
-importers:
+specifiers:
+  '@aws-sdk/client-dynamodb': ^3.284.0
+  '@aws-sdk/smithy-client': ^3.279.0
+  '@aws-sdk/types': ^3.272.0
+  '@babel/core': ^7.21.0
+  '@babel/preset-env': ^7.20.2
+  '@tanstack/react-query': ^4.26.1
+  '@trpc/client': ^10.14.0
+  '@trpc/react-query': ^10.14.0
+  '@trpc/server': ^10.14.0
+  '@tsconfig/node16': ^1.0.3
+  aws-cdk-lib: 2.62.2
+  aws-sdk-js-codemod: ^0.14.1
+  bcryptjs: ^2.4.3
+  constructs: 10.1.156
+  electrodb: ^2.4.2
+  helmet: ^6.0.1
+  jsonwebtoken: ^9.0.0
+  ksuid: ^3.0.0
+  mock-aws-s3: ^4.0.2
+  nock: ^13.3.0
+  oxide.ts: ^1.1.0
+  path: ^0.12.7
+  react: ^18.2.0
+  react-dom: ^18.2.0
+  sst: 2.1.12
+  typescript: ^4.9.5
+  vitest: ^0.29.2
+  zod: ^3.21.4
 
-  .:
-    specifiers:
-      '@aws-sdk/client-dynamodb': ^3.284.0
-      '@aws-sdk/smithy-client': ^3.279.0
-      '@aws-sdk/types': ^3.272.0
-      '@babel/core': ^7.21.0
-      '@babel/preset-env': ^7.20.2
-      '@tanstack/react-query': ^4.26.1
-      '@trpc/client': ^10.14.0
-      '@trpc/react-query': ^10.14.0
-      '@trpc/server': ^10.14.0
-      '@tsconfig/node16': ^1.0.3
-      aws-cdk-lib: ^2.62.2
-      aws-sdk-js-codemod: ^0.14.1
-      bcryptjs: ^2.4.3
-      constructs: ^10.1.270
-      electrodb: ^2.4.2
-      helmet: ^6.0.1
-      jsonwebtoken: ^9.0.0
-      ksuid: ^3.0.0
-      mock-aws-s3: ^4.0.2
-      nock: ^13.3.0
-      oxide.ts: ^1.1.0
-      path: ^0.12.7
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      sst: ~2.1.12
-      typescript: ^4.9.5
-      vitest: ^0.29.2
-      zod: ^3.21.4
-    dependencies:
-      '@aws-sdk/client-dynamodb': 3.284.0
-      '@aws-sdk/smithy-client': 3.279.0
-      '@aws-sdk/types': 3.272.0
-      '@babel/core': 7.21.0
-      '@babel/preset-env': 7.20.2_@babel+core@7.21.0
-      '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
-      '@trpc/client': 10.14.0_@trpc+server@10.14.0
-      '@trpc/react-query': 10.14.0_4pqoitdl65f6hbwuj4o2xagtj4
-      '@trpc/server': 10.14.0
-      aws-cdk-lib: 2.62.2_constructs@10.1.270
-      aws-sdk-js-codemod: 0.14.1_@babel+preset-env@7.20.2
-      bcryptjs: 2.4.3
-      constructs: 10.1.270
-      electrodb: 2.4.2_75xcwjrrmnviuk4w45rjat2vx4
-      helmet: 6.0.1
-      jsonwebtoken: 9.0.0
-      ksuid: 3.0.0
-      mock-aws-s3: 4.0.2
-      nock: 13.3.0
-      oxide.ts: 1.1.0
-      path: 0.12.7
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      zod: 3.21.4
-    devDependencies:
-      '@tsconfig/node16': 1.0.3
-      sst: 2.1.12
-      typescript: 4.9.5
-      vitest: 0.29.2
+dependencies:
+  '@aws-sdk/client-dynamodb': 3.284.0
+  '@aws-sdk/smithy-client': 3.279.0
+  '@aws-sdk/types': 3.272.0
+  '@babel/core': 7.21.0
+  '@babel/preset-env': 7.20.2_@babel+core@7.21.0
+  '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
+  '@trpc/client': 10.14.0_@trpc+server@10.14.0
+  '@trpc/react-query': 10.14.0_4pqoitdl65f6hbwuj4o2xagtj4
+  '@trpc/server': 10.14.0
+  aws-sdk-js-codemod: 0.14.1_@babel+preset-env@7.20.2
+  bcryptjs: 2.4.3
+  electrodb: 2.4.2_75xcwjrrmnviuk4w45rjat2vx4
+  helmet: 6.0.1
+  jsonwebtoken: 9.0.0
+  ksuid: 3.0.0
+  mock-aws-s3: 4.0.2
+  nock: 13.3.0
+  oxide.ts: 1.1.0
+  path: 0.12.7
+  react: 18.2.0
+  react-dom: 18.2.0_react@18.2.0
+  zod: 3.21.4
+
+devDependencies:
+  '@tsconfig/node16': 1.0.3
+  aws-cdk-lib: 2.62.2_constructs@10.1.156
+  constructs: 10.1.156
+  sst: 2.1.12
+  typescript: 4.9.5
+  vitest: 0.29.2
 
 packages:
 
@@ -74,12 +73,15 @@ packages:
 
   /@aws-cdk/asset-awscli-v1/2.2.97:
     resolution: {integrity: sha512-bWFkQphw1U7Q8XngShvGy0S1yqDui6q72zjnLciqKQ5ucZq17/TEujLTpSv+v2K5qJU8oa8VaMDiRyYbdPD6MA==}
+    dev: true
 
   /@aws-cdk/asset-kubectl-v20/2.1.1:
     resolution: {integrity: sha512-U1ntiX8XiMRRRH5J1IdC+1t5CE89015cwyt5U63Cpk0GnMlN5+h9WsWMlKlPXZR4rdq/m806JRlBMRpBUB2Dhw==}
+    dev: true
 
   /@aws-cdk/asset-node-proxy-agent-v5/2.0.77:
     resolution: {integrity: sha512-KKrnyIujGN38yOb0MIm0EnB3n7z83NRl9VgKvN0flOyB8C+3Ey+XKxLYfjoXJ/BulB0161eBJXXwGdP8xQrQJw==}
+    dev: true
 
   /@aws-cdk/aws-apigatewayv2-alpha/2.62.2-alpha.0_iqmstt3dpu37s47wyywi32lmnq:
     resolution: {integrity: sha512-MHnUWA846ksR8KNcxSGsrKCpUWuQfjwFiMyJE6gf2BugyDTtmdJCxWv7YAxk26s5hg87+JPqZ7VLPmxysBJvBg==}
@@ -3663,28 +3665,6 @@ packages:
       - semver
       - yaml
 
-  /aws-cdk-lib/2.62.2_constructs@10.1.270:
-    resolution: {integrity: sha512-ynyoEFQckICFJzbUd89pWjol3GGbxRF05E8BCPEyy++vLHJZdqaJxRL4REl4lrdznnkb1kvxtBSGg4cOkR4o3w==}
-    engines: {node: '>= 14.15.0'}
-    peerDependencies:
-      constructs: ^10.0.0
-    dependencies:
-      '@aws-cdk/asset-awscli-v1': 2.2.97
-      '@aws-cdk/asset-kubectl-v20': 2.1.1
-      '@aws-cdk/asset-node-proxy-agent-v5': 2.0.77
-      constructs: 10.1.270
-    dev: false
-    bundledDependencies:
-      - '@balena/dockerignore'
-      - case
-      - fs-extra
-      - ignore
-      - jsonschema
-      - minimatch
-      - punycode
-      - semver
-      - yaml
-
   /aws-cdk/2.62.2:
     resolution: {integrity: sha512-fACUQEdc43AfiqKKXUZLuHB2VADLU965hl50Fn6BhMemFmUsc+iS/GFfOwvfCUO3/iaRtsn/gk+dQ3zZ+snKRw==}
     engines: {node: '>= 14.15.0'}
@@ -4308,11 +4288,6 @@ packages:
     resolution: {integrity: sha512-BTZ3Kyt++/YFlph/ioqbDhzSKVMqHRHvc99FxU4b705ZP6s2IkDxMLCMinC70USMTJWFbO1p02Egux7sk4q07A==}
     engines: {node: '>= 14.17.0'}
     dev: true
-
-  /constructs/10.1.270:
-    resolution: {integrity: sha512-EuPb/VI9q0pOy/deaddOIO0RKdJXpBv+qTo7AbYK2dcEq6Kd7PJ8TnDQ5XwotWgB7YaXuTPddIgFDyyIstHcsA==}
-    engines: {node: '>= 14.17.0'}
-    dev: false
 
   /content-disposition/0.5.4:
     resolution: {integrity: sha512-FveZTNuGw04cxlAiWbzi6zTAL/lhehaWbTtgluJh4/E95DqMwTmha3KZN1aAWA8cFIhHzMZUvLevkw5Rqk+tSQ==}

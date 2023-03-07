@@ -1,17 +1,15 @@
 import { StackContext } from "sst/constructs";
 import {
-  CertificateValidation,
+  DnsValidatedCertificate,
   ICertificate,
 } from "aws-cdk-lib/aws-certificatemanager";
 import { HostedZone } from "aws-cdk-lib/aws-route53";
-import { dnsCertificate } from "./utils/certificatemanager";
 
-export function DnsStack(this: any, { app }: StackContext) {
+export function DnsStack({ stack, app }: StackContext) {
   const hostedZoneName =
     app.stage === "prod" ? `flivity.com` : `${app.stage}.flivity.com`;
-
   const hostedZone = hostedZoneName
-    ? HostedZone.fromLookup(this, "Zone", {
+    ? HostedZone.fromLookup(stack, "Zone", {
         domainName: hostedZoneName,
       })
     : undefined;
@@ -20,19 +18,24 @@ export function DnsStack(this: any, { app }: StackContext) {
     certificateGlobal: ICertificate | undefined;
 
   if (hostedZoneName && hostedZone) {
-    certificateRegional = dnsCertificate(this, "RegionalCertificate", {
-      domainName: hostedZoneName,
-      subjectAlternativeNames: [`*.${hostedZoneName}`],
-      validation: CertificateValidation.fromDns(hostedZone),
-    });
+    certificateRegional = new DnsValidatedCertificate(
+      stack,
+      "RegionalCertificate",
+      {
+        domainName: hostedZoneName,
+        hostedZone,
+        subjectAlternativeNames: [`*.${hostedZoneName}`],
+      }
+    );
+
     certificateGlobal =
       app.region === "us-east-1"
         ? certificateRegional
-        : dnsCertificate(this, "GlobalCertificate", {
+        : new DnsValidatedCertificate(stack, "GlobalCertificate", {
             domainName: hostedZoneName,
+            hostedZone,
             subjectAlternativeNames: [`*.${hostedZoneName}`],
             region: "us-east-1",
-            validation: CertificateValidation.fromDns(hostedZone),
           });
   }
 

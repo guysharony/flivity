@@ -1,11 +1,10 @@
-import { ApiHandler } from "@serverless-stack/node/api";
-import { AuthHandler, LinkAdapter, Session } from "@serverless-stack/node/auth";
+import { ApiHandler } from "sst/node/api";
+import { AuthHandler, LinkAdapter } from "sst/node/auth";
 import { JWT } from "@packages/libs/base/hash/jwt.hash";
-import { APIGatewayProxyEventQueryStringParameters } from "aws-lambda/trigger/api-gateway-proxy";
 import { SESClient } from "../libs/client/ses.client";
 import { trpc } from "./trpc";
 
-declare module "@serverless-stack/node/auth" {
+declare module "sst/node/auth" {
   export interface SessionTypes {
     user: {
       userID: string;
@@ -53,9 +52,7 @@ export const handler = ApiHandler(async (event, context) => {
           };
         },
         onSuccess: async function (claims) {
-          const parameters:
-            | APIGatewayProxyEventQueryStringParameters
-            | undefined = event.queryStringParameters;
+          const parameters: any = event.queryStringParameters;
 
           if (!parameters?.token) {
             throw new Error("Token is not valid.");

@@ -15,7 +15,6 @@ export function FrontendStack({ stack, app }: StackContext) {
     },
     buildOutput: "build",
     buildCommand: "npm run build",
-    disablePlaceholder: true,
     customDomain: {
       domainName:
         app.stage === "prod" ? `flivity.com` : `${app.stage}.flivity.com`,
@@ -28,7 +27,7 @@ export function FrontendStack({ stack, app }: StackContext) {
 
   // Show the url in the output
   stack.addOutputs({
-    SITE: site.url,
+    SITE: site.url || "",
   });
 
   return site;

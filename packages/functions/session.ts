@@ -1,4 +1,4 @@
-import { ApiHandler, useCookie } from "@serverless-stack/node/api";
+import { ApiHandler, useCookie } from "sst/node/api";
 import { JWT } from "@packages/libs/base/hash/jwt.hash";
 import { trpc } from "./trpc";
 
@@ -51,7 +51,6 @@ export const handler = ApiHandler(async () => {
         expires: maxAge.toUTCString(),
         user: {
           id: user.id,
-          name: user.name!,
           email: user.email,
           username: user.username!,
           email_verified: user.hasEmailVerified,

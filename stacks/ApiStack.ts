@@ -28,23 +28,31 @@ export function ApiStack({ stack, app }: StackContext) {
           REACT_APP_URL: currentDomain,
           REACT_APP_API_URL: apiCustomDomain,
         },
-        permissions: ["ses"],
+        permissions: [
+          new iam.PolicyStatement({
+            actions: ["ses:SendEmail"],
+            effect: iam.Effect.ALLOW,
+            resources: [
+              `arn:aws:ses:${stack.region}:${stack.account}:identity/*`,
+            ],
+          }),
+        ],
       },
     },
     routes: {
       "GET /session": {
         function: {
-          handler: "functions/session.handler",
+          handler: "packages/functions/session.handler",
         },
       },
       "GET /trpc/{proxy+}": {
         function: {
-          handler: "functions/trpc.handler",
+          handler: "packages/functions/trpc.handler",
         },
       },
       "POST /trpc/{proxy+}": {
         function: {
-          handler: "functions/trpc.handler",
+          handler: "packages/functions/trpc.handler",
         },
       },
     },
@@ -56,7 +64,7 @@ export function ApiStack({ stack, app }: StackContext) {
 
   const auth = new Auth(stack, "auth", {
     authenticator: {
-      handler: "functions/auth.handler",
+      handler: "packages/functions/auth.handler",
     },
   });
 

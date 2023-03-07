@@ -6,12 +6,21 @@ import useSession from '../../hooks/session.hook';
 import { BodyLayoutProps } from "./BodyLayout.interface";
 
 export default function BodyLayout({ children }: BodyLayoutProps) {
-	const { session } = useSession();
+	const session = useSession();
 
 	const childrenWithProps = React.Children.map(children, (child: ReactNode) => {
 		if (React.isValidElement<Record<string, any>>(child)) {
 			return React.cloneElement(child, {
-				context: session as ISession
+				context: {
+					session: session.session as ISession,
+					setSession: (value?: Partial<ISession>) => {
+						if (value) {
+							session.setSession({ ...session.session, ...value } as ISession);
+						} else {
+							session.setSession(undefined);
+						}
+					}
+				}
 			});
 		}
 		return child;

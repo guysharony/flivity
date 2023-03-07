@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { trpc } from '../../utils/trpc';
 
 import Input from '../../components/Input';
-import { ISession } from '../../context/session.context';
 import withProtection from '../../hoc/with-protection.hoc';
+import useSessionContext from '../../hooks/sessionContext.hook';
 
 import { Form } from './AccountConfiguration.interface';
 
 const AccountConfiguration = () => {
 	const navigate = useNavigate();
-	const context = useOutletContext<ISession>();
+	const context = useSessionContext();
 
 	const [loading, setLoading] = useState<boolean>(false);
 	const [form, setForm] = useState<Form>({
@@ -25,8 +25,15 @@ const AccountConfiguration = () => {
 	});
 
 	const setupUser = trpc.user.setup.useMutation({
-		onSuccess: (e) => {
-			console.log('Success: ', e);
+		onSuccess: (data) => {
+			context.setSession({
+				id: data.id,
+				display_name: data.displayName,
+				email: data.email,
+				username: data.username,
+				email_verified: data.hasEmailVerified,
+				account_configured: data.hasAccountConfigured,
+			});
 		},
 		onError: (error) => {
 			const cause = error.data?.cause;
@@ -51,7 +58,7 @@ const AccountConfiguration = () => {
 		setLoading(true);
 
 		await setupUser.mutateAsync({
-			id: context.id,
+			id: context.session.id,
 			firstName: form.values.firstName,
 			lastName: form.values.lastName,
 			displayName: form.values.displayName,

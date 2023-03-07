@@ -4,7 +4,7 @@ import request from "../utils/request";
 
 export interface ISession {
 	id: string;
-	name: string;
+	display_name: string;
 	email: string;
 	username: string;
 	email_verified: boolean;

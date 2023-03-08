@@ -30,11 +30,17 @@ const createBucket = (stack: Stack, id: string) => {
     });
   }
 
+  stack.addOutputs({
+    BUCKET_PROFILES: bucket.bucketName,
+  });
+
   return bucket;
 };
 
 export function StorageStack({ stack }: StackContext) {
-  const bucket = createBucket(stack, "profiles");
+  const profiles = createBucket(stack, "profiles");
 
-  return bucket;
+  return {
+    profiles,
+  };
 }

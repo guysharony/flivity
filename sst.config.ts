@@ -1,4 +1,5 @@
 import { SSTConfig } from "sst";
+import { StorageStack } from "./stacks/StorageStack";
 import { ApiStack } from "./stacks/ApiStack";
 import { DatabaseStack } from "./stacks/DatabaseStack";
 import { DnsStack } from "./stacks/DnsStack";
@@ -22,6 +23,7 @@ export default {
     });
 
     app
+      .stack(StorageStack)
       .stack(DnsStack)
       .stack(DatabaseStack)
       .stack(ApiStack)

@@ -7,20 +7,8 @@ import Icons from '../../components/Icons';
 
 import { MenuLayoutProps } from './MenuLayout.interface';
 
-const MenuItem = ({ to, icon, label }: any) => {
-	const location = useLocation();
-
-	return (
-		<Link to={to} className={`flex px-1 items-center rounded-3xl ${to === location.pathname ? 'text-white bg-gray-600 stroke-white' : 'text-gray-600 stroke-gray-600 hover:text-white hover:bg-gray-300 hover:stroke-white'} w-52 h-12 text-left`}>
-			<div className='h-9 w-9 rounded-full overflow-hidden mx-3 stroke-1'>
-				<Icons type={icon} />
-			</div>
-			<span>{label}</span>
-		</Link>
-	);
-}
-
 export default function MenuLayout({ menu }: MenuLayoutProps) {
+	const location = useLocation();
 	const { session } = useSession();
 
 	if (!menu) {
@@ -37,9 +25,24 @@ export default function MenuLayout({ menu }: MenuLayoutProps) {
 							{
 								session.account_configured &&
 								<>
-									<MenuItem to={`/${session.username}`} icon='profile' label='Profile' />
-									<MenuItem to={`/videos`} icon='video' label='Videos' />
-									<MenuItem to={`/settings`} icon='settings' label='Settings' />
+									<Link to={`/${session.username}`} className={`flex px-1 items-center rounded-3xl ${`/${session.username}` === location.pathname ? 'text-white bg-gray-600 stroke-white' : 'text-gray-600 stroke-gray-600 hover:text-white hover:bg-gray-300 hover:stroke-white'} w-52 h-12 text-left`}>
+										<div className='h-9 w-9 rounded-full overflow-hidden mx-3 stroke-1'>
+											<Icons type='profile' />
+										</div>
+										<span>Profile</span>
+									</Link>
+									<Link to={`/videos`} className={`flex px-1 items-center rounded-3xl ${`/videos` === location.pathname ? 'text-white bg-gray-600 stroke-white' : 'text-gray-600 stroke-gray-600 hover:text-white hover:bg-gray-300 hover:stroke-white'} w-52 h-12 text-left`}>
+										<div className='h-9 w-9 rounded-full overflow-hidden mx-3 stroke-1'>
+											<Icons type='video' />
+										</div>
+										<span>Videos</span>
+									</Link>
+									<Link to={`/settings`} className={`flex px-1 items-center rounded-3xl ${`/settings` === location.pathname ? 'text-white bg-gray-600 fill-white' : 'text-gray-600 fill-gray-600 hover:text-white hover:bg-gray-300 hover:fill-white'} w-52 h-12 text-left`}>
+										<div className='h-9 w-9 rounded-full overflow-hidden mx-3 stroke-1'>
+											<Icons type='settings' />
+										</div>
+										<span>Settings</span>
+									</Link>
 								</>
 							}
 							<button className='flex px-1 items-center rounded-3xl text-gray-600 stroke-gray-600 text-base w-52 h-12 text-left hover:text-white hover:bg-gray-300 hover:stroke-white'>

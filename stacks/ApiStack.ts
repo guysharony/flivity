@@ -1,4 +1,10 @@
-import { use, StackContext, Api as ApiGateway, Auth } from "sst/constructs";
+import {
+  use,
+  StackContext,
+  Api as ApiGateway,
+  Auth,
+  Config,
+} from "sst/constructs";
 import * as iam from "aws-cdk-lib/aws-iam";
 
 import { DatabaseStack } from "./DatabaseStack";
@@ -7,6 +13,8 @@ import { StorageStack } from "./StorageStack";
 export function ApiStack({ stack, app }: StackContext) {
   const table = use(DatabaseStack);
   const storage = use(StorageStack);
+
+  const FLIVITY_KEY = new Config.Secret(stack, "FLIVITY_KEY");
 
   const apiCustomDomain =
     app.stage === "prod" ? "api.flivity.com" : `api.${app.stage}.flivity.com`;
@@ -43,23 +51,30 @@ export function ApiStack({ stack, app }: StackContext) {
       },
     },
     routes: {
+      "GET /profiles": {
+        function: {
+          handler: "packages/functions/profiles/profiles.handler",
+        },
+      },
       "GET /session": {
         function: {
-          handler: "packages/functions/session.handler",
+          handler: "packages/functions/session/session.handler",
         },
       },
       "GET /trpc/{proxy+}": {
         function: {
-          handler: "packages/functions/trpc.handler",
+          handler: "packages/functions/trpc/trpc.handler",
         },
       },
       "POST /trpc/{proxy+}": {
         function: {
-          handler: "packages/functions/trpc.handler",
+          handler: "packages/functions/trpc/trpc.handler",
         },
       },
     },
   });
+
+  api.bind([FLIVITY_KEY]);
 
   stack.addOutputs({
     REACT_APP_API_URL: api.url,

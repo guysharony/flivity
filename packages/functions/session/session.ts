@@ -1,6 +1,8 @@
 import { ApiHandler, useCookie } from "sst/node/api";
+
 import { JWT } from "@packages/libs/base/hash/jwt.hash";
-import { trpc } from "./trpc";
+import { trpc } from "@packages/functions/trpc/trpc";
+import { Config } from "sst/node/config";
 
 export const handler = ApiHandler(async () => {
   const sessionToken = useCookie("session-token");
@@ -16,7 +18,7 @@ export const handler = ApiHandler(async () => {
       };
     }
 
-    const payload = JWT.decode(sessionToken, "this_is_a_session_token");
+    const payload = JWT.decode(sessionToken, Config.FLIVITY_KEY);
 
     if (!payload || typeof payload == "string") {
       throw new Error("session token not valid.");

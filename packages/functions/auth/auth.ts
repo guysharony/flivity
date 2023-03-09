@@ -1,8 +1,11 @@
 import { ApiHandler } from "sst/node/api";
+import { Config } from "sst/node/config";
 import { AuthHandler, LinkAdapter } from "sst/node/auth";
+
 import { JWT } from "@packages/libs/base/hash/jwt.hash";
-import { SESClient } from "../libs/client/ses.client";
-import { trpc } from "./trpc";
+import { SESClient } from "@packages/libs/client/ses.client";
+
+import { trpc } from "@packages/functions/trpc/trpc";
 
 declare module "sst/node/auth" {
   export interface SessionTypes {
@@ -85,7 +88,7 @@ export const handler = ApiHandler(async (event, context) => {
               iat: issued,
               exp: issued + expires,
             },
-            "this_is_a_session_token"
+            Config.FLIVITY_KEY
           );
 
           return {

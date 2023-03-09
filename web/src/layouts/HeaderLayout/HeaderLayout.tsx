@@ -30,7 +30,7 @@ export default function HeaderLayout({ setMenu }: HeaderLayoutProps) {
 						{
 							session
 								? <button className='h-10 w-10 rounded-full overflow-hidden' onClick={() => setMenu()}>
-									<img src="#" alt='profile' />
+									<img src={`${process.env.REACT_APP_URL}/profiles`} alt='profile' />
 								</button>
 								: <>
 									<Link to={'/signin'} className='flex items-center h-10 px-4 rounded-3xl text-blue-800 border-blue-800 border font-light text-base bg-white'>Sign in</Link>

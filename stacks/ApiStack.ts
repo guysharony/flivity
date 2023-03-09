@@ -47,6 +47,11 @@ export function ApiStack({ stack, app }: StackContext) {
               `arn:aws:ses:${stack.region}:${stack.account}:identity/*`,
             ],
           }),
+          new iam.PolicyStatement({
+            actions: ["s3:GetObject"],
+            effect: iam.Effect.ALLOW,
+            resources: [`arn:aws:s3:::${storage.profiles.bucketName}/*`],
+          }),
         ],
       },
     },

@@ -6,7 +6,7 @@ export function AuthStack({ stack }: StackContext) {
 
   const auth = new Auth(stack, "auth", {
     authenticator: {
-      handler: "packages/functions/auth.handler",
+      handler: "packages/functions/auth/auth.handler",
     },
   });
 

@@ -31,6 +31,7 @@ const AccountConfiguration = () => {
 				display_name: data.displayName,
 				email: data.email,
 				username: data.username,
+				profile_picture: data.profilePicture,
 				email_verified: data.hasEmailVerified,
 				account_configured: data.hasAccountConfigured,
 			});

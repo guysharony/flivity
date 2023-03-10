@@ -2,8 +2,8 @@ export interface CreateUserProps {
   firstName?: string;
   lastName?: string;
   email: string;
-  displayName?: string;
   username?: string;
+  displayName?: string;
   hasEmailVerified?: boolean;
   hasAccountConfigured?: boolean;
 }

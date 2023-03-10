@@ -4,7 +4,9 @@ import { EntityBase } from "../../../libs/base/classes/entity.base";
 import { CreateUserProps, UpdateUserProps } from "./props/user.entity-props";
 import { UserRepository } from "../database/user.repository";
 
-export interface UserProps extends CreateUserProps {}
+export interface UserProps extends CreateUserProps {
+  profilePicture?: string;
+}
 
 export class UserEntity extends EntityBase<UserProps> {
   protected declare readonly _id: string;
@@ -25,6 +27,17 @@ export class UserEntity extends EntityBase<UserProps> {
 
   get displayName() {
     return this.props.displayName;
+  }
+
+  get profilePicture() {
+    const url = new URL(`/profiles/${this._id}`, process.env.REACT_APP_URL);
+
+    const profile_picture = this.props.profilePicture || "";
+    if (profile_picture.length > 0) {
+      url.searchParams.set("picture", profile_picture);
+    }
+
+    return url.href;
   }
 
   get username() {

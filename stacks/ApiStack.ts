@@ -56,7 +56,7 @@ export function ApiStack({ stack, app }: StackContext) {
       },
     },
     routes: {
-      "GET /profiles": {
+      "GET /profiles/{userID}": {
         function: {
           handler: "packages/functions/profiles/profiles.handler",
         },

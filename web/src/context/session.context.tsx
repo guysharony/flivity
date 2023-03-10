@@ -4,9 +4,10 @@ import request from "../utils/request";
 
 export interface ISession {
 	id: string;
-	display_name: string;
 	email: string;
 	username: string;
+	display_name: string;
+	profile_picture: string;
 	email_verified: boolean;
 	account_configured: boolean;
 }

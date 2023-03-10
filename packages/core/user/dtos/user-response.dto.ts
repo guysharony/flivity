@@ -6,6 +6,7 @@ export class UserResponse {
     this.email = user.email;
     this.username = user.username;
     this.displayName = user.displayName;
+    this.profilePicture = user.profilePicture;
     this.hasEmailVerified = !!user.hasEmailVerified;
     this.hasAccountConfigured = !!user.hasAccountConfigured;
   }
@@ -14,6 +15,7 @@ export class UserResponse {
   email: string;
   username?: string;
   displayName?: string;
+  profilePicture?: string;
   hasEmailVerified: boolean;
   hasAccountConfigured: boolean;
 }

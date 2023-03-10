@@ -43,6 +43,8 @@ export const handler = ApiHandler(async () => {
       "this_is_an_access_token"
     );
 
+    console.log(user);
+
     return {
       statusCode: 200,
       headers: {
@@ -55,6 +57,7 @@ export const handler = ApiHandler(async () => {
           id: user.id,
           email: user.email,
           username: user.username!,
+          profile_picture: user.profilePicture,
           email_verified: user.hasEmailVerified,
           account_configured: user.hasAccountConfigured,
         },

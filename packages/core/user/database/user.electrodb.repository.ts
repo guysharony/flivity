@@ -32,6 +32,10 @@ export const userEntity = new Entity(
         type: "string",
         required: false,
       },
+      profilePicture: {
+        type: "string",
+        required: false,
+      },
       username: {
         type: "string",
         required: false,

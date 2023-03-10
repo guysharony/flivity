@@ -19,6 +19,7 @@ export class UserOrmProperty extends OrmPropertyBase<
       email: props.email,
       displayName: props.displayName,
       username: props.username,
+      profilePicture: props.profilePicture,
       hasEmailVerified: props.hasEmailVerified,
       hasAccountConfigured: props.hasAccountConfigured,
     };
@@ -35,6 +36,7 @@ export class UserOrmProperty extends OrmPropertyBase<
       displayName: props.displayName,
       email: props.email,
       username: props.username,
+      profilePicture: props.profilePicture,
       hasEmailVerified: props.hasEmailVerified,
       hasAccountConfigured: props.hasAccountConfigured,
     };

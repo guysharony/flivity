@@ -14,6 +14,7 @@ export class UserDomainProperty extends DomainPropertyBase<
       lastName: ormEntity.lastName,
       email: ormEntity.email,
       displayName: ormEntity.displayName,
+      profilePicture: ormEntity.profilePicture,
       username: ormEntity.username,
       hasEmailVerified: ormEntity.hasEmailVerified,
       hasAccountConfigured: ormEntity.hasAccountConfigured,

@@ -13,3 +13,15 @@ export const isAuthenticated = t.middleware(({ next, ctx }) => {
     },
   });
 });
+
+export const isNotAuthenticated = t.middleware(({ next, ctx }) => {
+  if (ctx.session?.userID) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+    });
+  }
+
+  return next({
+    ctx: {},
+  });
+});

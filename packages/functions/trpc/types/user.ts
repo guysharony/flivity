@@ -1,12 +1,15 @@
 import { z, ZodError } from "zod";
-import { match, Ok, Result } from "oxide.ts";
+import { match } from "oxide.ts";
 import { TRPCError } from "@trpc/server";
 
 import { t } from "@packages/libs/trpc/router";
+import {
+  isAuthenticated,
+  isNotAuthenticated,
+} from "@packages/libs/trpc/procedure";
 import { IDResponse } from "@packages/libs/responses/id/id.response";
 import { BooleanResponse } from "@packages/libs/responses/boolean/boolean.response";
 import { UserResponse } from "@packages/core/user/dtos/user-response.dto";
-import { UserOrmEntity } from "@packages/core/user/database/user.orm.entity";
 import { ExceptionBase } from "@packages/libs/base/exceptions/exception.base";
 import { CreateUserCommand } from "@packages/core/user/commands/create-user/create-user.command";
 import { CreateUserService } from "@packages/core/user/commands/create-user/create-user.service";
@@ -136,6 +139,7 @@ export const userRouter = t.router({
       });
     }),
   create: t.procedure
+    .use(isNotAuthenticated)
     .input(
       z.object({
         email: z.string().email({ message: "Email address is not valid." }),
@@ -179,6 +183,7 @@ export const userRouter = t.router({
       });
     }),
   setup: t.procedure
+    .use(isAuthenticated)
     .input(
       z.object({
         id: z.string(),

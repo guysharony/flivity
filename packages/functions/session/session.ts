@@ -1,8 +1,8 @@
 import { ApiHandler, useCookie } from "sst/node/api";
+import { Config } from "sst/node/config";
 
 import { JWT } from "@packages/libs/base/hash/jwt.hash";
 import { trpc } from "@packages/functions/trpc/trpc";
-import { Config } from "sst/node/config";
 
 export const handler = ApiHandler(async () => {
   const sessionToken = useCookie("session-token");

@@ -11,7 +11,7 @@ export const appRouter = t.router({
   session: sessionRouter,
 });
 
-export const trpc = appRouter.createCaller({});
+export const trpc = appRouter.createCaller({ session: {} });
 
 export type AppRouter = typeof appRouter;
 

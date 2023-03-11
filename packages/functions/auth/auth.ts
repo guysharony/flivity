@@ -79,7 +79,7 @@ export const handler = ApiHandler(async (event, context) => {
           });
 
           const issued = Date.now();
-          const expires = 30 * 24 * 60 * 60 * 1000;
+          const expires = 5 * 60 * 1000; /*30 * 24 * 60 * 60 * 1000*/
           const maxAge = new Date(issued + expires);
 
           const sessionToken = JWT.sign(

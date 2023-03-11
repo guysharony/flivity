@@ -7,6 +7,7 @@ export const isAuthenticated = t.middleware(({ next, ctx }) => {
       code: "UNAUTHORIZED",
     });
   }
+
   return next({
     ctx: {
       session: ctx.session,

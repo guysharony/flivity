@@ -4,8 +4,9 @@ import * as trpc from "@trpc/server";
 import { CreateAWSLambdaContextOptions } from "@trpc/server/adapters/aws-lambda";
 import { JWT } from "../base/hash/jwt.hash";
 import { Config } from "sst/node/config";
+import { TRPCError } from "@trpc/server";
 
-const cookieParser = (cookieString: string[]) => {
+const cookieParser = (cookieString: string[] = []) => {
   const cookieObject: Record<string, string> = cookieString.reduce(
     (acc, cookie) => {
       const parts = cookie.trim().split("=");
@@ -39,18 +40,23 @@ export const createContext = ({
     const cookies = cookieParser(event.cookies);
     const sessionToken = cookies.get("session-token");
 
-    if (sessionToken) {
-      const { userID } = JWT.decode(sessionToken, Config.FLIVITY_KEY);
-
-      return {
-        session: {
-          userID,
-        },
-      };
+    if (!sessionToken) {
+      return {};
     }
+
+    const { userID } = JWT.decode(sessionToken, Config.FLIVITY_KEY);
+
+    return {
+      session: {
+        userID,
+      },
+    };
   } catch (err) {
-    console.log("CONTEXT ERROR: ", err);
-    return {};
+    console.log("ERROR: ", err);
+
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+    });
   }
 };
 

@@ -68,7 +68,7 @@ const Signup = () => {
 
 	return (
 		<div className='flex flex-col justify-center items-center mx-auto max-w-md h-full'>
-			<div className='w-full text-center'>
+			<div className='w-96 text-center'>
 				{
 					sent
 						? <>

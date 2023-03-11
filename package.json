@@ -31,6 +31,7 @@
     "@trpc/client": "^10.14.0",
     "@trpc/react-query": "^10.14.0",
     "@trpc/server": "^10.14.0",
+    "@types/jsonwebtoken": "^9.0.1",
     "aws-sdk": "^2.1329.0",
     "aws-sdk-js-codemod": "^0.14.1",
     "bcryptjs": "^2.4.3",

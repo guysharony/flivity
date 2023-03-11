@@ -1,5 +1,6 @@
 import { ApiHandler, useCookie } from "sst/node/api";
 import { Config } from "sst/node/config";
+import crypto from "crypto";
 
 import { JWT } from "@packages/libs/base/hash/jwt.hash";
 import { trpc } from "@packages/functions/trpc/trpc";
@@ -19,7 +20,6 @@ export const handler = ApiHandler(async () => {
     }
 
     const payload = JWT.decode(sessionToken, Config.FLIVITY_KEY);
-
     if (!payload || typeof payload == "string") {
       throw new Error("session token not valid.");
     }
@@ -30,18 +30,12 @@ export const handler = ApiHandler(async () => {
       throw new Error("user not found.");
     }
 
-    const issued = Date.now();
-    const expires = 10 * 60 * 1000; /*7 * 24 * 60 * 60 * 1000;*/
-    const maxAge = new Date(issued + expires);
-
-    const accessToken = JWT.sign(
-      {
-        user_id: user.id,
-        iat: issued,
-        exp: issued + expires,
-      },
-      Config.FLIVITY_KEY
-    );
+    const expires = 5 * 60;
+    const maxAge = new Date(Date.now() + expires * 1000 * 2);
+    const accessToken = crypto
+      .createHmac("sha256", Config.FLIVITY_KEY)
+      .update(JSON.stringify(payload))
+      .digest("base64");
 
     return {
       statusCode: 200,
@@ -62,6 +56,7 @@ export const handler = ApiHandler(async () => {
       }),
     };
   } catch (err) {
+    console.log("error session: ", err);
     return {
       statusCode: 403,
       cookies: [

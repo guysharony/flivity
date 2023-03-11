@@ -48,10 +48,11 @@ const request = () => {
 
       initialized = true;
     },
-    api: async (
+    api: async function (
+      this: any,
       input: string | RequestInfo | URL,
       init?: RequestInit | undefined
-    ) => {
+    ) {
       if (!initialized) {
         throw new Error("Request not initialized.");
       }
@@ -72,7 +73,20 @@ const request = () => {
         credentials: "include",
       });
 
-      return response;
+      if (this.isTrpc) {
+        return response;
+      }
+
+      const contentType = response.headers.get("Content-Type");
+      const isJson = contentType && contentType.includes("application/json");
+
+      const body = isJson ? await response.json() : response;
+
+      if (response.status === 400) {
+        throw body;
+      }
+
+      return body;
     },
   };
 };

@@ -70,10 +70,7 @@ export const userRouter = t.router({
         Ok: (user: UserEntity) => new UserResponse(user),
         Err: (error: Error) => {
           if (error instanceof ExceptionBase) {
-            throw new TRPCError({
-              code: "NOT_FOUND",
-              message: error.message,
-            });
+            return null;
           }
 
           throw error;

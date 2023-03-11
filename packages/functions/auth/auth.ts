@@ -6,6 +6,10 @@ import { JWT } from "@packages/libs/base/hash/jwt.hash";
 import { SESClient } from "@packages/libs/client/ses.client";
 
 import { trpc } from "@packages/functions/trpc/trpc";
+import { TRPCError } from "@trpc/server";
+import { UserNotFoundError } from "@packages/core/user/errors/user-not-found.error";
+import { ExceptionBase } from "@packages/libs/base/exceptions/exception.base";
+import { ZodError } from "zod";
 
 declare module "sst/node/auth" {
   export interface SessionTypes {
@@ -23,17 +27,32 @@ export const handler = ApiHandler(async (event, context) => {
       link: LinkAdapter({
         onLink: async function (link, claims) {
           console.log("Link: ", link, claims);
-
           const url = new URL(link);
           const params = new URLSearchParams(url.search);
           const token = params.get("token");
           if (!token) {
-            throw new Error("Token is not valid.");
+            return {
+              statusCode: 500,
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                message: "Something went wrong, please try again later.",
+              }),
+            };
           }
 
           const user = await trpc.user.findByEmail({ email: claims.email });
           if (!user) {
-            throw new Error("User not found.");
+            return {
+              statusCode: 400,
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: "Email address not found.",
+              }),
+            };
           }
 
           await trpc.session.create({
@@ -78,17 +97,16 @@ export const handler = ApiHandler(async (event, context) => {
             hasEmailVerified: true,
           });
 
-          const issued = Date.now();
-          const expires = 5 * 60 * 1000; /*30 * 24 * 60 * 60 * 1000*/
-          const maxAge = new Date(issued + expires);
-
+          const expires = 5 * 60;
+          const maxAge = new Date(Date.now() + expires * 1000 * 2);
           const sessionToken = JWT.sign(
             {
               userID: session.userId,
-              iat: issued,
-              exp: issued + expires,
             },
-            Config.FLIVITY_KEY
+            Config.FLIVITY_KEY,
+            {
+              expiresIn: expires,
+            }
           );
 
           return {

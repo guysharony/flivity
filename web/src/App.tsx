@@ -27,7 +27,7 @@ function App() {
 				httpBatchLink({
 					url: '/trpc',
 					fetch(url, options) {
-						return request.api(url, options);
+						return request.api.call({ isTrpc: true, }, url, options);
 					},
 				}),
 			],

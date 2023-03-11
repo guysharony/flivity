@@ -15,7 +15,11 @@ export const trpc = appRouter.createCaller({ session: {} });
 
 export type AppRouter = typeof appRouter;
 
-export const handler = awsLambdaRequestHandler({
-  router: appRouter,
-  createContext,
-});
+export const handler = async (event: any, context: any) => {
+  const response = await awsLambdaRequestHandler({
+    router: appRouter,
+    createContext,
+  })(event, context);
+
+  return response;
+};

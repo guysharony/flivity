@@ -64,8 +64,6 @@ export const handler = ApiHandler(async (event) => {
   const id = params.userID;
   const picture = query.get("picture");
 
-  console.log("test", id);
-
   if (!id) {
     return streamResponse();
   }

@@ -7,7 +7,6 @@ import { UserRepository } from "../database/user.repository";
 export interface UserProps extends CreateUserProps {
   profilePicture?: string;
 }
-
 export class UserEntity extends EntityBase<UserProps> {
   protected declare readonly _id: string;
 
@@ -30,7 +29,10 @@ export class UserEntity extends EntityBase<UserProps> {
   }
 
   get profilePicture() {
-    const url = new URL(`/profiles/${this._id}`, process.env.REACT_APP_URL);
+    const url = new URL(
+      `/profiles/${this._id}`,
+      `https://${process.env.REACT_APP_API_URL}`
+    );
 
     const profile_picture = this.props.profilePicture || "";
     if (profile_picture.length > 0) {

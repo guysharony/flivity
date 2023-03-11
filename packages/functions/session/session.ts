@@ -40,10 +40,8 @@ export const handler = ApiHandler(async () => {
         iat: issued,
         exp: issued + expires,
       },
-      "this_is_an_access_token"
+      Config.FLIVITY_KEY
     );
-
-    console.log(user);
 
     return {
       statusCode: 200,

@@ -32,9 +32,9 @@ const cookieParser = (cookieString: string[]) => {
   };
 };
 
-export const createContext = async ({
+export const createContext = ({
   event,
-}: CreateAWSLambdaContextOptions<APIGatewayProxyEventV2>) => {
+}: CreateAWSLambdaContextOptions<APIGatewayProxyEventV2>): any => {
   try {
     const cookies = cookieParser(event.cookies);
     const sessionToken = cookies.get("session-token");

@@ -7,6 +7,7 @@ import { trpc } from '../../utils/trpc';
 import QueryLayout from '../../layouts/QueryLayout/QueryLayout';
 
 import ProfileHeader from './Profile.header';
+import ProfileBody from './Profile.body';
 
 export default function Profile() {
 	const { username } = useParams();
@@ -22,6 +23,8 @@ export default function Profile() {
 	return (
 		<QueryLayout queries={[user]}>
 			<ProfileHeader
+				user={user.data as Required<UserResponse>} />
+			<ProfileBody
 				user={user.data as Required<UserResponse>} />
 		</QueryLayout>
 	)

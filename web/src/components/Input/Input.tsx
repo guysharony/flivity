@@ -2,8 +2,8 @@ import React from 'react';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { InputProps } from './index.interface';
-import './index.style.css';
+import { InputProps } from './Input.interface';
+import './Input.style.css';
 
 export default function Input({ label, onChange, type, value, error, className }: InputProps) {
 	const errors = typeof error == 'string' ? [error] : error;

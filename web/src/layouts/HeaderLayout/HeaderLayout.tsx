@@ -11,15 +11,15 @@ import { HeaderLayoutProps } from './HeaderLayout.interface';
 export default function HeaderLayout({ setMenu }: HeaderLayoutProps) {
 	const { session } = useSession();
 
-	console.log(session?.profile_picture);
-
 	return (
-		<div className='fixed top-0 w-full bg-white'>
+		<div className='fixed top-0 w-full bg-white' style={{ zIndex: 1000 }}>
 			<div className='mx-auto px-4 sm:px-6'>
 				<div className='flex items-center justify-between py-2 space-x-10'>
 					<div className='flex justify-start lg:w-0 lg:flex-1'>
 						<Link to={'/'}>
-							<img src={logo} className='h-10 w-10 rounded-full overflow-hidden' alt='logo' />
+							<div className='h-10 w-10 rounded-full overflow-hidden'>
+								<img src={logo} className='w-full h-full' alt='logo' />
+							</div>
 						</Link>
 					</div>
 					<div className='space-x-10 md:flex'>

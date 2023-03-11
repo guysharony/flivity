@@ -11,6 +11,9 @@ import Signin from './pages/Signin/Signin';
 import Signup from './pages/Signup/Signup';
 import AccountConfiguration from './pages/AccountConfiguration/AccountConfiguration';
 import Profile from './pages/Profile/Profile';
+import ProfileHome from './pages/Profile/components/ProfileHome/ProfileHome';
+import ProfileVideos from './pages/Profile/components/ProfileVideos/ProfileVideos';
+import ProfileAbout from './pages/Profile/components/ProfileAbout/ProfileAbout';
 
 const router = createBrowserRouter([
 	{
@@ -32,6 +35,20 @@ const router = createBrowserRouter([
 			{
 				path: '/:username',
 				element: <Profile />,
+				children: [
+					{
+						path: '/:username',
+						element: <ProfileHome />,
+					},
+					{
+						path: '/:username/videos',
+						element: <ProfileVideos />,
+					},
+					{
+						path: '/:username/about',
+						element: <ProfileAbout />,
+					},
+				]
 			},
 			{
 				path: '/',

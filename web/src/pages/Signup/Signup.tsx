@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { trpc } from '../../utils/trpc';
 import request from '../../utils/request';
 
-import Input from '../../components/Input';
+import Input from '../../components/Input/Input';
 
 import { Form } from './Signup.interface';
 import withProtection from '../../hoc/with-protection.hoc';

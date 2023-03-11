@@ -1,20 +1,33 @@
-import { UserResponse } from "@packages/core/user/dtos/user-response.dto";
-
-interface IProfileHeader {
-	user: Required<UserResponse>;
-}
+import { IProfileHeader } from "./Profile.header.interface";
+import ProfileImage from '../../components/ProfileImage/ProfileImage';
+import Menu from "../../components/Menu/Menu";
 
 const ProfileHeader = ({ user }: IProfileHeader) => {
 	return (
-		<div>
-			<div>
-				<div>
-
-				</div>
-				<div>
-					<span>{user.displayName}</span>
+		<div className="pb-4">
+			<div className="flex">
+				<ProfileImage src={user.profilePicture} alt='user' className="w-24" />
+				<div className="flex flex-col justify-center pb-2 ml-4">
+					<span className="text-2xl font-medium">{user.displayName}</span>
+					<span className="text-base text-gray-500 font-normal">{user.username}</span>
 				</div>
 			</div>
+			<Menu
+				className='mt-4'
+				options={[
+					{
+						value: `/${user.username}`,
+						label: 'Home'
+					},
+					{
+						value: `/${user.username}/videos`,
+						label: 'Videos'
+					},
+					{
+						value: `/${user.username}/about`,
+						label: 'About'
+					}
+				]} />
 		</div>
 	);
 }

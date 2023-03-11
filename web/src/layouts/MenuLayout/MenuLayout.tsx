@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import useSession from '../../hooks/session.hook';
 
-import Icons from '../../components/Icons';
+import Icons from '../../components/Icons/Icons';
 
 import { MenuLayoutProps } from './MenuLayout.interface';
 

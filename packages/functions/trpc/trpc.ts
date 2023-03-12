@@ -5,10 +5,12 @@ import { createContext } from "@packages/libs/trpc/context";
 
 import { userRouter } from "./types/user";
 import { sessionRouter } from "./types/session";
+import { videoRouter } from "./types/video";
 
 export const appRouter = t.router({
   user: userRouter,
   session: sessionRouter,
+  video: videoRouter,
 });
 
 export const trpc = appRouter.createCaller({ session: {} });

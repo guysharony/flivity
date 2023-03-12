@@ -14,6 +14,7 @@ import Profile from './pages/Profile/Profile';
 import ProfileHome from './pages/Profile/components/ProfileHome/ProfileHome';
 import ProfileVideos from './pages/Profile/components/ProfileVideos/ProfileVideos';
 import ProfileAbout from './pages/Profile/components/ProfileAbout/ProfileAbout';
+import Videos from './pages/Videos/Videos';
 
 const router = createBrowserRouter([
 	{
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
 			{
 				path: '/account_configuration',
 				element: <AccountConfiguration />
+			},
+			{
+				path: '/videos',
+				element: <Videos />
 			},
 			{
 				path: '/:username',

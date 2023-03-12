@@ -57,8 +57,6 @@ const getImage = async (key: string) => {
 };
 
 export const handler = ApiHandler(async (event) => {
-  console.log("test");
-
   const params = event.pathParameters;
   const query = new URLSearchParams(event.rawQueryString);
   const id = params.userID;

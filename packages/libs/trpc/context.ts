@@ -1,11 +1,10 @@
 import { APIGatewayProxyEventV2 } from "aws-lambda";
-import crypto from "crypto";
 
 import * as trpc from "@trpc/server";
-import { CreateAWSLambdaContextOptions } from "@trpc/server/adapters/aws-lambda";
-import { JWT } from "../base/hash/jwt.hash";
-import { Config } from "sst/node/config";
 import { TRPCError } from "@trpc/server";
+import { CreateAWSLambdaContextOptions } from "@trpc/server/adapters/aws-lambda";
+import { SessionToken } from "../base/token/session-token/session-token";
+import { AccessToken } from "../base/token/access-token/access-token";
 
 const cookieParser = (cookieString: string[] = []) => {
   const cookieObject: Record<string, string> = cookieString.reduce(
@@ -34,50 +33,54 @@ const cookieParser = (cookieString: string[] = []) => {
   };
 };
 
+const authorizationParser = (authorization?: string) => {
+  if (!authorization) {
+    return null;
+  }
+
+  const accessTokenParts = authorization.split(" ");
+  if (accessTokenParts.length !== 2 || accessTokenParts[0] !== "Bearer") {
+    return null;
+  }
+
+  return accessTokenParts[1];
+};
+
 export const createContext = ({
   event,
 }: CreateAWSLambdaContextOptions<APIGatewayProxyEventV2>): any => {
   try {
     const cookies = cookieParser(event.cookies);
-    const sessionToken = cookies.get("session-token");
-    if (!sessionToken) {
+    const sessionTokenValue = cookies.get("session-token");
+    if (!sessionTokenValue) {
       return {};
     }
 
-    const payload = JWT.decode(sessionToken, Config.FLIVITY_KEY);
-    if (!payload || typeof payload == "string") {
+    // Verify session token
+    const sessionToken = new SessionToken(sessionTokenValue);
+    if (!sessionToken.payload) {
       throw new Error("session token not valid.");
     }
 
     // Verify authorization header
-    const authorization = event.headers.authorization;
+    const authorization = authorizationParser(event.headers?.authorization);
     if (!authorization) {
-      throw new Error("access token not valid.");
+      throw new Error("authorization not valid.");
     }
 
-    const accessTokenParts = authorization.split(" ");
-    if (accessTokenParts.length !== 2 || accessTokenParts[0] !== "Bearer") {
-      throw new Error("access token not valid.");
-    }
-
-    const accessToken = accessTokenParts[1];
-
-    const validAccessToken = crypto
-      .createHmac("sha256", Config.FLIVITY_KEY)
-      .update(JSON.stringify(payload))
-      .digest("base64");
-
-    if (accessToken !== validAccessToken) {
+    // Verify access token
+    const accessToken = new AccessToken(authorization);
+    if (!accessToken.payload) {
       throw new Error("access token not valid.");
     }
 
     return {
       session: {
-        userID: payload.userID,
+        userID: accessToken.payload.userID,
       },
     };
   } catch (err) {
-    console.log("ERROR: ", err);
+    console.log(event, "CONTEXT ERROR [", err, "]");
 
     throw new TRPCError({
       code: "UNAUTHORIZED",

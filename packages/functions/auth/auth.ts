@@ -1,15 +1,10 @@
 import { ApiHandler } from "sst/node/api";
-import { Config } from "sst/node/config";
 import { AuthHandler, LinkAdapter } from "sst/node/auth";
 
-import { JWT } from "@packages/libs/base/hash/jwt.hash";
 import { SESClient } from "@packages/libs/client/ses.client";
 
 import { trpc } from "@packages/functions/trpc/trpc";
-import { TRPCError } from "@trpc/server";
-import { UserNotFoundError } from "@packages/core/user/errors/user-not-found.error";
-import { ExceptionBase } from "@packages/libs/base/exceptions/exception.base";
-import { ZodError } from "zod";
+import { SessionToken } from "@packages/libs/base/token/session-token/session-token";
 
 declare module "sst/node/auth" {
   export interface SessionTypes {
@@ -97,17 +92,12 @@ export const handler = ApiHandler(async (event, context) => {
             hasEmailVerified: true,
           });
 
-          const expires = 5 * 60;
-          const maxAge = new Date(Date.now() + expires * 1000 * 2);
-          const sessionToken = JWT.sign(
-            {
-              userID: session.userId,
-            },
-            Config.FLIVITY_KEY,
-            {
-              expiresIn: expires,
-            }
-          );
+          const sessionToken = new SessionToken({
+            userID: session.userId,
+          });
+          if (!sessionToken.isValid) {
+            throw new Error("Token is not valid.");
+          }
 
           return {
             statusCode: 302,
@@ -115,7 +105,7 @@ export const handler = ApiHandler(async (event, context) => {
               location: `${process.env.REACT_APP_URL}`,
             },
             cookies: [
-              `session-token=${sessionToken}; HttpOnly; SameSite=None; Secure; Path=/; Expires=${maxAge}`,
+              `session-token=${sessionToken.token}; HttpOnly; SameSite=None; Secure; Path=/; Expires=${sessionToken.maxAge}`,
             ],
           };
         },

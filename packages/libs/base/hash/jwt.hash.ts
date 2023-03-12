@@ -1,7 +1,9 @@
 import { JwtPayload, sign, SignOptions, verify } from "jsonwebtoken";
 
 export class JWT {
-  static sign(
+  constructor() {}
+
+  protected sign(
     payload: string | object | Buffer,
     secret: string,
     options?: SignOptions
@@ -9,12 +11,10 @@ export class JWT {
     return sign(payload, secret, options);
   }
 
-  static decode(token: string, secret: string): string | JwtPayload | null {
+  protected decode(token: string, secret: string): string | JwtPayload | null {
     try {
-      console.log("VERIFY: ", token, secret);
       return verify(token, secret);
     } catch (err) {
-      console.log("verify: ", err);
       return null;
     }
   }

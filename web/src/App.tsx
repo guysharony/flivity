@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ConfigProvider } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { httpBatchLink } from '@trpc/client';
@@ -41,17 +42,19 @@ function App() {
 	}, [location.pathname, navigate, session])
 
 	return (
-		<trpc.Provider client={trpcClient} queryClient={queryClient}>
-			<QueryClientProvider client={queryClient}>
-				<HeaderLayout setMenu={() => setMenu(!menu)} />
-				<div className='mt-14 flex-auto'>
-					<BodyLayout>
-						<Outlet />
-					</BodyLayout>
-					<MenuLayout menu={menu} />
-				</div>
-			</QueryClientProvider>
-		</trpc.Provider>
+		<ConfigProvider>
+			<trpc.Provider client={trpcClient} queryClient={queryClient}>
+				<QueryClientProvider client={queryClient}>
+					<HeaderLayout setMenu={() => setMenu(!menu)} />
+					<div className='mt-14 flex-auto'>
+						<BodyLayout>
+							<Outlet />
+						</BodyLayout>
+						<MenuLayout menu={menu} />
+					</div>
+				</QueryClientProvider>
+			</trpc.Provider>
+		</ConfigProvider>
 	);
 }
 

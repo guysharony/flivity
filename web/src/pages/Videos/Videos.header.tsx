@@ -5,7 +5,7 @@ const VideosHeader = ({ videos }: IVideosHeader) => {
 		<div className="pb-4">
 			<div className="flex py-6">
 				<div>
-					<span>{`My Videos (${videos.length})`}</span>
+					<span className="text-2xl font-sans">Videos</span>
 				</div>
 			</div>
 		</div>

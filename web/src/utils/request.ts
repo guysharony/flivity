@@ -6,7 +6,7 @@ const request = () => {
   let user: Record<string, any> | undefined;
 
   const getApiUrl = (input: string) => {
-    const url = new URL(input, process.env.REACT_APP_URL);
+    const url = new URL(input, process.env.REACT_APP_API_URL);
 
     return url.href;
   };

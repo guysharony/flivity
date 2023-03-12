@@ -103,4 +103,12 @@ export class SessionToken extends JWT {
       return null;
     }
   }
+
+  expand() {
+    if (!this.payload) {
+      throw new Error("Failed to expand");
+    }
+
+    return this.create(this.payload);
+  }
 }

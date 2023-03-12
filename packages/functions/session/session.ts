@@ -1,6 +1,3 @@
-import crypto from "crypto";
-
-import { Config } from "sst/node/config";
 import { ApiHandler, useCookie } from "sst/node/api";
 
 import { trpc } from "@packages/functions/trpc/trpc";
@@ -37,11 +34,16 @@ export const handler = ApiHandler(async () => {
       throw new Error("access token not valid.");
     }
 
+    sessionToken.expand();
+
     return {
       statusCode: 200,
       headers: {
         "content-type": "application/json; charset=utf-8",
       },
+      cookies: [
+        `session-token=${sessionToken.token}; HttpOnly; SameSite=None; Secure; Path=/; Expires=${sessionToken.maxAge}`,
+      ],
       body: JSON.stringify({
         accessToken: accessToken.token,
         expires: accessToken.maxAge.toUTCString(),

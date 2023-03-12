@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 
 import { IVideosBody } from './Videos.body.interface';
@@ -31,6 +32,7 @@ const ProfileBody = ({ videos }: IVideosBody) => {
 		{
 			title: 'Title',
 			dataIndex: 'title',
+			width: '50%',
 		},
 		{
 			title: 'Views',
@@ -55,12 +57,12 @@ const ProfileBody = ({ videos }: IVideosBody) => {
 		{
 			title: '',
 			dataIndex: '',
-			width: '12%',
+			width: '0',
 			render() {
 				return (
-					<div className='flex gap-3'>
-						<button>Edit</button>
-						<button>Delete</button>
+					<div className='flex'>
+						<Button type="link" icon={<EditOutlined />} size='large' />
+						<Button type="link" icon={<DeleteOutlined />} size='large' />
 					</div>
 				)
 			}

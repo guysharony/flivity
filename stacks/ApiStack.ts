@@ -1,10 +1,4 @@
-import {
-  use,
-  StackContext,
-  Api as ApiGateway,
-  Auth,
-  Config,
-} from "sst/constructs";
+import { use, StackContext, Api as ApiGateway, Config } from "sst/constructs";
 import * as iam from "aws-cdk-lib/aws-iam";
 
 import { DatabaseStack } from "./DatabaseStack";

@@ -4,7 +4,7 @@ import { AuthHandler, LinkAdapter } from "sst/node/auth";
 import { SESClient } from "@packages/libs/client/ses.client";
 
 import { trpc } from "@packages/functions/trpc/trpc";
-import { SessionToken } from "@packages/libs/base/token/session-token/session-token";
+import { SessionToken } from "@packages/libs/base/token/session-token";
 
 declare module "sst/node/auth" {
   export interface SessionTypes {

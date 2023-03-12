@@ -1,8 +1,8 @@
 import { ApiHandler, useCookie } from "sst/node/api";
 
 import { trpc } from "@packages/functions/trpc/trpc";
-import { SessionToken } from "@packages/libs/base/token/session-token/session-token";
-import { AccessToken } from "@packages/libs/base/token/access-token/access-token";
+import { SessionToken } from "@packages/libs/base/token/session-token";
+import { AccessToken } from "@packages/libs/base/token/access-token";
 
 export const handler = ApiHandler(async () => {
   const cookie = useCookie("session-token");

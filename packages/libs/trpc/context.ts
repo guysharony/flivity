@@ -3,8 +3,9 @@ import { APIGatewayProxyEventV2 } from "aws-lambda";
 import * as trpc from "@trpc/server";
 import { TRPCError } from "@trpc/server";
 import { CreateAWSLambdaContextOptions } from "@trpc/server/adapters/aws-lambda";
-import { SessionToken } from "../base/token/session-token/session-token";
-import { AccessToken } from "../base/token/access-token/access-token";
+
+import { SessionToken } from "../base/token/session-token";
+import { AccessToken } from "../base/token/access-token";
 
 const cookieParser = (cookieString: string[] = []) => {
   const cookieObject: Record<string, string> = cookieString.reduce(

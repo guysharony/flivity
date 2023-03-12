@@ -1,16 +1,23 @@
 import { Config } from "sst/node/config";
 
-import { JWT } from "../../hash/jwt.hash";
+import { JWT } from "../hash/jwt.hash";
 
-import { IAccessToken, IAccessTokenPayload } from "./access-token.interface";
+export type ITokenBase = string;
 
-export class AccessToken extends JWT {
+export interface ITokenBasePayload {
+  userID: string;
+}
+
+export default class TokenBase extends JWT {
   private _maxAge?: Date;
   private _expiresIn?: number;
   private _token?: string;
-  private _payload?: IAccessTokenPayload;
+  private _payload?: ITokenBasePayload;
 
-  constructor(value?: IAccessTokenPayload | IAccessToken) {
+  constructor(
+    value: ITokenBasePayload | ITokenBase | undefined,
+    private duration: number
+  ) {
     super();
 
     switch (typeof value) {
@@ -35,12 +42,12 @@ export class AccessToken extends JWT {
     return this._maxAge;
   }
 
-  // Token
+  // TokenBase
   public get token() {
     return this._token;
   }
 
-  // Token payload
+  // TokenBase payload
   public get payload() {
     return this._payload;
   }
@@ -59,7 +66,7 @@ export class AccessToken extends JWT {
     this._token = value;
   }
 
-  public set payload(value: IAccessTokenPayload | undefined) {
+  public set payload(value: ITokenBasePayload | undefined) {
     this._payload = value;
   }
 
@@ -67,9 +74,9 @@ export class AccessToken extends JWT {
     this._maxAge = value;
   }
 
-  private create(value: IAccessTokenPayload) {
+  private create(value: ITokenBasePayload) {
     this.payload = value;
-    this.expiresIn = 5 * 60;
+    this.expiresIn = this.duration;
 
     this.token = this.sign(value, Config.FLIVITY_KEY, {
       expiresIn: this.expiresIn,
@@ -78,7 +85,7 @@ export class AccessToken extends JWT {
     return this.token;
   }
 
-  private check(token: IAccessToken) {
+  private check(token: ITokenBase) {
     if (!token) {
       return null;
     }
@@ -98,9 +105,17 @@ export class AccessToken extends JWT {
       this._expiresIn = payload.iat - payload.exp;
       this._maxAge = new Date(payload.exp * 1000);
 
-      return { userID: payload.userID } as IAccessTokenPayload;
+      return { userID: payload.userID } as ITokenBasePayload;
     } catch (err) {
       return null;
     }
+  }
+
+  expand() {
+    if (!this.payload) {
+      throw new Error("Failed to expand");
+    }
+
+    return this.create(this.payload);
   }
 }

@@ -15,6 +15,9 @@ import ProfileHome from './pages/Profile/components/ProfileHome/ProfileHome';
 import ProfileVideos from './pages/Profile/components/ProfileVideos/ProfileVideos';
 import ProfileAbout from './pages/Profile/components/ProfileAbout/ProfileAbout';
 import Videos from './pages/Videos/Videos';
+import Upload from './pages/Upload/Upload';
+import UploadDetails from './pages/Upload/components/UploadDetails/UploadDetails';
+import UploadVisibility from './pages/Upload/components/UploadVisibility/UploadVisibility';
 
 const router = createBrowserRouter([
 	{
@@ -36,6 +39,20 @@ const router = createBrowserRouter([
 			{
 				path: '/videos',
 				element: <Videos />
+			},
+			{
+				path: '/upload/:videoID',
+				element: <Upload />,
+				children: [
+					{
+						path: '/upload/:videoID',
+						element: <UploadDetails />,
+					},
+					{
+						path: '/upload/:videoID/visibility',
+						element: <UploadVisibility />,
+					}
+				]
 			},
 			{
 				path: '/:username',

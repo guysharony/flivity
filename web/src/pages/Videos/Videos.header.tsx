@@ -1,5 +1,4 @@
-import { Button } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import UploadButton from '../../components/UploadButton/UploadButton';
 
 import { IVideosHeader } from "./Videos.header.interface";
 
@@ -11,9 +10,7 @@ const VideosHeader = ({ videos }: IVideosHeader) => {
 					<span className="text-2xl font-sans">Videos</span>
 				</div>
 				<div>
-					<Button icon={<UploadOutlined />} shape='round' size='large' className='flex items-center'>
-						Upload a video
-					</Button>
+					<UploadButton />
 				</div>
 			</div>
 		</div>

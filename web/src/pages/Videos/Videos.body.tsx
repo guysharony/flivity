@@ -5,9 +5,7 @@ import type { ColumnsType } from 'antd/es/table';
 
 import { IVideosBody } from './Videos.body.interface';
 
-const ProfileBody = ({ videos }: IVideosBody) => {
-	console.log(process.env);
-
+const VideosBody = ({ videos }: IVideosBody) => {
 	interface DataType {
 		key: React.Key;
 		thumbnail: string;
@@ -99,4 +97,4 @@ const ProfileBody = ({ videos }: IVideosBody) => {
 	);
 }
 
-export default ProfileBody;
+export default VideosBody;

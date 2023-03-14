@@ -28,7 +28,7 @@ const UploaderModal = ({ title, open }: IUploaderModal) => {
 			width={800}
 			footer={null}
 		>
-			<Dragger name='video' multiple={true} onChange={onChange}>
+			<Dragger name='video' multiple={false} maxCount={1} listType="picture" className="upload-list-inline" onChange={onChange}>
 				<div className='py-5'>
 					<p className="ant-upload-drag-icon">
 						<InboxOutlined />

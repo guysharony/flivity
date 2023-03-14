@@ -46,7 +46,7 @@ function App() {
 			<trpc.Provider client={trpcClient} queryClient={queryClient}>
 				<QueryClientProvider client={queryClient}>
 					<HeaderLayout setMenu={() => setMenu(!menu)} />
-					<div className='mt-14 flex-auto'>
+					<div className='flex overflow-hidden flex-auto'>
 						<BodyLayout>
 							<Outlet />
 						</BodyLayout>

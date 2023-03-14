@@ -16,7 +16,7 @@ export default function MenuLayout({ menu }: MenuLayoutProps) {
 	}
 
 	return (
-		<div className='fixed h-full mt-14 right-0 top-0 bg-white'>
+		<div className='h-full right-0 top-0 bg-white'>
 			<div className='flex items-center justify-between py-2'>
 				<div className='flex flex-col px-4 sm:px-6'>
 					{

@@ -8,5 +8,6 @@ html, body, #root {
 
 #root {
 	display: flex;
-  flex-flow: column;
+	flex-direction: column;
+	overflow: hidden;
 }

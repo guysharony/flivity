@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import { Button } from 'antd';
+import React from 'react';
+import { Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-import UploaderModal from '../Modals/UploaderModal/UploaderModal';
-
 const UploadButton = () => {
-	const [open, setOpen] = useState(false);
+	const onChange = ({ file }: any) => {
+		console.log(file);
+	}
 
 	return (
-		<>
-			<Button icon={<UploadOutlined />} onClick={() => setOpen(true)} shape='round' size='large' className='flex items-center'>
+		<Upload onChange={onChange} showUploadList={false}>
+			<Button icon={<UploadOutlined />} shape='round' size='large' className='flex items-center'>
 				Upload a video
 			</Button>
-			<UploaderModal open={open} setOpen={setOpen} />
-		</>
+		</Upload>
 	);
 }
 

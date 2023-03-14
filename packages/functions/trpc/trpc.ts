@@ -13,7 +13,7 @@ export const appRouter = t.router({
   video: videoRouter,
 });
 
-export const trpc = appRouter.createCaller({ session: {} });
+export const trpc = appRouter.createCaller({});
 
 export type AppRouter = typeof appRouter;
 

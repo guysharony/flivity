@@ -47,9 +47,15 @@ const authorizationParser = (authorization?: string) => {
   return accessTokenParts[1];
 };
 
+interface IContext {
+  session?: {
+    userID: string;
+  };
+}
+
 export const createContext = ({
   event,
-}: CreateAWSLambdaContextOptions<APIGatewayProxyEventV2>): any => {
+}: CreateAWSLambdaContextOptions<APIGatewayProxyEventV2>): IContext => {
   try {
     const cookies = cookieParser(event.cookies);
     const sessionTokenValue = cookies.get("session-token");

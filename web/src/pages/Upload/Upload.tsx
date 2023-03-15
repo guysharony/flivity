@@ -1,17 +1,14 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { VideoResponse } from '@packages/core/video/dtos/video-response.dto';
 
-import { trpc } from '../../utils/trpc';
-import useSessionContext from '../../hooks/sessionContext.hook';
-import QueryLayout from '../../layouts/QueryLayout/QueryLayout';
+import { trpc } from 'src/utils/trpc';
+import QueryLayout from 'src/layouts/QueryLayout/QueryLayout';
 
 import UploadsHeader from './Upload.header';
 import UploadBody from './Upload.body';
 
 export default function Upload() {
-	const context = useSessionContext();
 	const { videoID } = useParams();
 
 	if (!videoID) {

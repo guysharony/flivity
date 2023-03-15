@@ -1,9 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-import useSession from '../../hooks/session.hook';
+import useSession from 'src/hooks/session.hook';
 
-import logo from '../../static/logo.png';
+import logo from 'src/static/logo.png';
 
 import './HeaderLayout.style.css';
 import { HeaderLayoutProps } from './HeaderLayout.interface';
@@ -14,9 +13,6 @@ export default function HeaderLayout({ setMenu }: HeaderLayoutProps) {
 	return (
 		<>
 			<div className='top-0 w-full bg-white' style={{ zIndex: 1000 }}>
-				<div className='mx-auto px-4 py-1 sm:px-6 bg-sky-600'>
-					<span className='text-white'>Uploading video...</span>
-				</div>
 				<div className='mx-auto px-4 sm:px-6'>
 					<div className='flex items-center justify-between py-2 space-x-10'>
 						<div className='flex justify-start lg:w-0 lg:flex-1'>

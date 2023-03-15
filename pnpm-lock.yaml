@@ -43,6 +43,7 @@ importers:
       react-dom: ^18.2.0
       react-router-dom: ^6.9.0
       react-scripts: ^5.0.1
+      recoil: ^0.7.7
       sst: 2.1.12
       typescript: ^4.9.5
       uuid: ^9.0.0
@@ -83,6 +84,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-router-dom: 6.9.0_biqbaboplfbrettd7655fr4n2y
       react-scripts: 5.0.1_4b623jbeyzi4h3l6het54x5soi
+      recoil: 0.7.7_biqbaboplfbrettd7655fr4n2y
       zod: 3.21.4
     devDependencies:
       '@tsconfig/node16': 1.0.3
@@ -8874,6 +8876,10 @@ packages:
       duplexer: 0.1.2
     dev: false
 
+  /hamt_plus/1.0.2:
+    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
+    dev: false
+
   /handle-thing/2.0.1:
     resolution: {integrity: sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg==}
     dev: false
@@ -13266,6 +13272,23 @@ packages:
       esprima: 4.0.1
       source-map: 0.6.1
       tslib: 2.5.0
+    dev: false
+
+  /recoil/0.7.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==}
+    peerDependencies:
+      react: '>=16.13.1'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      hamt_plus: 1.0.2
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /recursive-readdir/2.2.3:

@@ -1,4 +1,5 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -83,9 +84,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
 	<React.StrictMode>
-		<SessionProvider>
-			<RouterProvider router={router} />
-		</SessionProvider>
+		<RecoilRoot>
+			<SessionProvider>
+				<RouterProvider router={router} />
+			</SessionProvider>
+		</RecoilRoot>
 	</React.StrictMode>,
 );
 

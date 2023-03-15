@@ -1,41 +1,29 @@
-import React from 'react';
-import { Modal, Upload } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
+import { useRecoilState } from 'recoil';
+import { UploadOutlined } from '@ant-design/icons';
+
+import { uploadState } from 'src/atoms/upload.atom';
 
 import { IUploaderModal } from './UploaderModal.interface';
 
-const { Dragger } = Upload;
+const UploaderModal = ({ title }: IUploaderModal) => {
+	const [upload, setUpload] = useRecoilState(uploadState);
 
-const UploaderModal = ({ title, open }: IUploaderModal) => {
-	const onChange = (info: any) => {
-		const { status } = info.file;
-		if (status !== 'uploading') {
-			console.log(info.file, info.fileList);
-		}
-
-		if (status === 'done') {
-			console.log(`${info.file.name} file uploaded successfully.`);
-		} else if (status === 'error') {
-			console.log(`${info.file.name} file upload failed.`);
-		}
+	if (!upload) {
+		return null;
 	}
 
 	return (
 		<Modal
 			title={title || 'Upload video'}
 			centered
-			open={open}
+			open={true}
 			width={800}
+			onCancel={() => setUpload(undefined)}
 			footer={null}
 		>
-			<Dragger name='video' multiple={false} maxCount={1} listType="picture" className="upload-list-inline" onChange={onChange}>
-				<div className='py-5'>
-					<p className="ant-upload-drag-icon">
-						<InboxOutlined />
-					</p>
-					<p className="ant-upload-text">Click or drag file to this area to upload</p>
-				</div>
-			</Dragger>
+			<UploadOutlined />
+			<span>{`Uploading => ${upload.name}`}</span>
 		</Modal>
 	)
 }

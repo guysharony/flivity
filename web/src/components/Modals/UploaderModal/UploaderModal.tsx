@@ -1,29 +1,39 @@
 import { Modal } from 'antd';
-import { useRecoilState } from 'recoil';
+import Dragger from 'antd/es/upload/Dragger';
 import { UploadOutlined } from '@ant-design/icons';
-
-import { uploadState } from 'src/atoms/upload.atom';
 
 import { IUploaderModal } from './UploaderModal.interface';
 
-const UploaderModal = ({ title }: IUploaderModal) => {
-	const [upload, setUpload] = useRecoilState(uploadState);
+const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
+	const customRequest = ({
+		action,
+		data,
+		file,
+		filename,
+		headers,
+		onError,
+		onProgress,
+		onSuccess,
+		withCredentials
+	}: any) => {
 
-	if (!upload) {
-		return null;
 	}
 
 	return (
 		<Modal
 			title={title || 'Upload video'}
 			centered
-			open={true}
+			open={open}
 			width={800}
-			onCancel={() => setUpload(undefined)}
+			onCancel={() => setOpen(false)}
 			footer={null}
 		>
-			<UploadOutlined />
-			<span>{`Uploading => ${upload.name}`}</span>
+			<Dragger name='file' multiple={true} listType="picture" customRequest={customRequest}>
+				<p className="ant-upload-drag-icon">
+					<UploadOutlined />
+				</p>
+				<p className="ant-upload-text">Click or drag file to this area to upload</p>
+			</Dragger>
 		</Modal>
 	)
 }

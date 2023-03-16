@@ -50,7 +50,7 @@ function App() {
 						<BodyLayout>
 							<Outlet />
 						</BodyLayout>
-						<MenuLayout menu={menu} />
+						<MenuLayout menu={menu} setMenu={() => setMenu(!menu)} />
 					</div>
 				</QueryClientProvider>
 			</trpc.Provider>

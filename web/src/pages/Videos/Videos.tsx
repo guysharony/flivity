@@ -8,8 +8,9 @@ import QueryLayout from '../../layouts/QueryLayout/QueryLayout';
 
 import VideosHeader from './Videos.header';
 import VideosBody from './Videos.body';
+import withProtection from 'src/hoc/with-protection.hoc';
 
-export default function Videos() {
+const Videos = () => {
 	const context = useSessionContext();
 
 	const videos = trpc.video.findByAuthorID.useQuery({ authorID: context.session.id });
@@ -23,3 +24,5 @@ export default function Videos() {
 		</QueryLayout>
 	)
 }
+
+export default withProtection(Videos, { authenticated: true, configured: true });

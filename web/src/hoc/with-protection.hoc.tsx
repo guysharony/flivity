@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import useSession from "../hooks/session.hook";
 
 interface IWithProtection {
@@ -16,7 +16,6 @@ const withProtection = <T extends Record<string, any>>(
 
 	const ComponentWithProtection = (props: T) => {
 		const session = useSession();
-		const navigate = useNavigate();
 
 		let mustAuthenticated = !params || params.authenticated;
 		let mustConfigured = !params || params.configured;
@@ -33,27 +32,22 @@ const withProtection = <T extends Record<string, any>>(
 			mustConfigured = true;
 		}
 
-		React.useEffect(() => {
-			if (mustAuthenticated === true && isAuthentiated === false) {
-				navigate("/signup");
-				return;
-			}
+		if (mustAuthenticated === true && isAuthentiated === false) {
+			return <Navigate to='/signup' />;
+		}
 
-			if (
-				mustAuthenticated === true &&
-				mustConfigured === true &&
-				isAuthentiated === true &&
-				isConfigured === false
-			) {
-				navigate("/account_configuration");
-				return;
-			}
+		if (
+			mustAuthenticated === true &&
+			mustConfigured === true &&
+			isAuthentiated === true &&
+			isConfigured === false
+		) {
+			return <Navigate to='/account_configuration' />;
+		}
 
-			if ((mustAuthenticated === false && isAuthentiated === true) || (mustConfigured === false && isConfigured === true)) {
-				navigate("/");
-				return;
-			}
-		}, [isAuthentiated, isConfigured, mustAuthenticated, mustConfigured, navigate]);
+		if ((mustAuthenticated === false && isAuthentiated === true) || (mustConfigured === false && isConfigured === true)) {
+			return <Navigate to='/' />;
+		}
 
 		console.log('Must authenticate: ', mustAuthenticated);
 		console.log('Must configure: ', mustConfigured);

@@ -59,7 +59,7 @@ const getImage = async (key: string) => {
 export const handler = ApiHandler(async (event) => {
   const params = event.pathParameters;
   const query = new URLSearchParams(event.rawQueryString);
-  const id = params.userID;
+  const id = params?.userID;
   const picture = query.get("picture");
 
   if (!id) {
@@ -67,7 +67,7 @@ export const handler = ApiHandler(async (event) => {
   }
 
   const imageBuffer = await getImage(
-    picture ? `picture/${params.userID}/${picture}.jpg` : "default/profile.jpg"
+    picture ? `picture/${id}/${picture}.jpg` : "default/profile.jpg"
   );
 
   return streamResponse(imageBuffer);

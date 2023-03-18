@@ -44,6 +44,14 @@ const createProfileBucket = (stack: Stack) => {
 
 const createVideoBucket = (stack: Stack) => {
   const bucket = new Bucket(stack, "Bucket-Videos", {
+    cors: [
+      {
+        allowedMethods: ["GET", "POST", "PUT"],
+        allowedOrigins: ["*"],
+        allowedHeaders: ["*"],
+        exposedHeaders: ["ETag"],
+      },
+    ],
     cdk: {
       bucket: {
         removalPolicy: RemovalPolicy.DESTROY,
@@ -62,6 +70,7 @@ const createVideoBucket = (stack: Stack) => {
         "s3:PutObject",
         "s3:GetObject",
         "s3:DeleteObject",
+        "s3:ListBucket",
         "s3:ListMultipartUploadParts",
         "s3:ListBucketMultipartUploads",
         "s3:AbortMultipartUpload",

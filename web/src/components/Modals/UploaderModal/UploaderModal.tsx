@@ -6,6 +6,8 @@ import { IUploaderModal } from './UploaderModal.interface';
 import { trpc } from 'src/utils/trpc';
 import { useState } from 'react';
 
+const chunkSize = 1000000;
+
 const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
 	const [parts, setParts] = useState<number>(0);
 
@@ -13,54 +15,24 @@ const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
 	const presigned = trpc.upload.presigned.useMutation();
 	const complete = trpc.upload.complete.useMutation();
 
-	const uploadChunks = async (id: string, file: File) => {
-		const chunkSize = 1000000;
+	const convertToChunks = async (file: File, callback: (chunk: Blob, index: number) => Promise<any>) => {
+		const chunks = Math.ceil(file.size / chunkSize);
+		let chunkIndex = 0;
 
-		let start = 0;
-		let part = 0;
+		const parts = [];
 
-		const uploadResponses = [];
+		while (chunkIndex < chunks) {
+			const start = chunkIndex * chunkSize;
+			const end = Math.min(file.size, (chunkIndex + 1) * chunkSize);
+			const chunk = file.slice(start, end);
 
-		for (let i = 0; i < file.size; i += chunkSize) {
-			part++;
+			const response = await callback(chunk, chunkIndex + 1);
 
-			// Get the chunk data and create a Blob for it
-			const chunk = file.slice(i, i + part);
-			const blob = new Blob([chunk], { type: file.type });
-
-			const { url, fields } = await presigned.mutateAsync({
-				filename: file.name,
-				id: id,
-				filetype: file.type,
-				part: part,
-				filesize: file.size,
-				partsize: chunkSize
-			});
-
-			const formData = new FormData();
-			Object.entries(fields).forEach(([key, value]) => {
-				formData.append(key, value);
-			});
-			formData.append("file", blob);
-
-			const response = await fetch(url, {
-				method: "POST",
-				body: formData,
-			});
-
-			const ETag = response.headers.get('ETag')!;
-
-			uploadResponses.push({
-				ETag: ETag,
-				PartNumber: part,
-			});
-
-			await new Promise((resolve) => {
-				setTimeout(resolve, 1000 / 1);
-			});
+			parts.push(response);
+			chunkIndex++;
 		}
 
-		return uploadResponses;
+		return parts;
 	}
 
 	const customRequest = async ({
@@ -78,7 +50,31 @@ const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
 			filename: file.name as string
 		});
 
-		const parts = await uploadChunks(created.id, file);
+		const parts = await convertToChunks(file, async (chunk: Blob, index: number) => {
+			const { url } = await presigned.mutateAsync({
+				part: index,
+				filename: file.name,
+				id: created.id
+			})
+
+			const headers = new Headers();
+			headers.append("Content-Type", "application/octet-stream");
+
+			const response = await fetch(url, {
+				method: "PUT",
+				headers: headers,
+				body: chunk,
+			});
+
+			const ETag = response.headers.get('etag')!;
+
+			return {
+				ETag: ETag.substring(1, ETag.length - 1),
+				PartNumber: index
+			}
+		});
+
+		console.log(parts);
 
 		const response = await complete.mutateAsync({
 			id: created.id,

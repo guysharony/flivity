@@ -1,12 +1,15 @@
 import { z } from "zod";
 import { t } from "@packages/libs/trpc/router";
-import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import {
   CompleteMultipartUploadCommand,
   CreateMultipartUploadCommand,
   GetObjectCommand,
+  PutObjectCommand,
   S3,
   S3Client,
+  UploadPartCommand,
+  UploadPartCopyCommand,
 } from "@aws-sdk/client-s3";
 
 const videoBucket = process.env.BUCKET_VIDEO_NAME as string;
@@ -21,7 +24,7 @@ export const uploadRouter = t.router({
 
       const multipartUploadCommand = new CreateMultipartUploadCommand({
         Bucket: videoBucket,
-        Key: filename,
+        Key: `video/${filename}`,
       });
 
       const response = await s3.send(multipartUploadCommand);
@@ -34,17 +37,15 @@ export const uploadRouter = t.router({
   presigned: t.procedure
     .input(
       z.object({
-        filename: z.string(),
-        filetype: z.string(),
         part: z.number(),
         id: z.string(),
-        filesize: z.number(),
-        partsize: z.number(),
+        filename: z.string(),
       })
     )
     .mutation(async (req) => {
-      const { filename, filetype, part, filesize, partsize, id } = req.input;
+      const { id, part, filename } = req.input;
 
+      /*
       const presignedPostResponse = await createPresignedPost(s3, {
         Bucket: videoBucket,
         Key: filename,
@@ -55,11 +56,28 @@ export const uploadRouter = t.router({
           "x-amz-meta-upload-id": id,
           "x-amz-meta-max-parts": Math.ceil(filesize / partsize).toString(),
         },
-        Conditions: [["content-length-range", 0, 1000000]],
+        Conditions: [
+          ["content-length-range", 0, partsize],
+          { "x-amz-meta-part-number": part.toString() },
+          { "x-amz-meta-upload-id": id },
+        ],
         Expires: 3600,
       });
 
       return presignedPostResponse;
+			*/
+      const uploadPart = new UploadPartCommand({
+        Bucket: videoBucket,
+        Key: `video/${filename}`,
+        UploadId: id,
+        PartNumber: part,
+      });
+
+      const response = await getSignedUrl(s3, uploadPart, {
+        expiresIn: 3600,
+      });
+
+      return { url: response };
     }),
   complete: t.procedure
     .input(
@@ -74,7 +92,7 @@ export const uploadRouter = t.router({
 
       const multipartUploadCommand = new CompleteMultipartUploadCommand({
         Bucket: videoBucket,
-        Key: filename,
+        Key: `video/${filename}`,
         UploadId: id,
         MultipartUpload: {
           Parts: parts,

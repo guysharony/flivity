@@ -2,15 +2,13 @@ import { Modal } from 'antd';
 import Dragger from 'antd/es/upload/Dragger';
 import { UploadOutlined } from '@ant-design/icons';
 
-import { IUploaderModal } from './UploaderModal.interface';
 import { trpc } from 'src/utils/trpc';
-import { useState } from 'react';
 
-const chunkSize = 1000000;
+import { IUploaderModal } from './UploaderModal.interface';
+
+const chunkSize = 1024 * 1025 * 5;
 
 const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
-	const [parts, setParts] = useState<number>(0);
-
 	const initialize = trpc.upload.initialize.useMutation();
 	const presigned = trpc.upload.presigned.useMutation();
 	const complete = trpc.upload.complete.useMutation();
@@ -74,15 +72,13 @@ const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
 			}
 		});
 
-		console.log(parts);
-
-		const response = await complete.mutateAsync({
+		await complete.mutateAsync({
 			id: created.id,
 			filename: file.name as string,
 			parts: parts
 		});
 
-		console.log(response);
+		onSuccess();
 	}
 
 	return (
@@ -94,7 +90,7 @@ const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
 			onCancel={() => setOpen(false)}
 			footer={null}
 		>
-			<Dragger name='file' multiple={false} customRequest={customRequest}>
+			<Dragger name='file' listType="picture" multiple={false} customRequest={customRequest}>
 				<p className="ant-upload-drag-icon">
 					<UploadOutlined />
 				</p>

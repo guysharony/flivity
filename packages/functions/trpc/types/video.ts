@@ -8,7 +8,7 @@ import { FindVideoByIdService } from "@packages/core/video/queries/find-video-by
 import { FindVideoByIdQuery } from "@packages/core/video/queries/find-video-by-id/find-video-by-id.query";
 import { VideoEntity } from "@packages/core/video/entity/video.entity";
 import { VideoResponse } from "@packages/core/video/dtos/video-response.dto";
-import { FindVideoByAuthorIDService } from "@packages/core/video/queries/find-video-by-authorID/find-video-by-id.service";
+import { FindVideoByAuthorIDService } from "@packages/core/video/queries/find-video-by-authorID/find-video-by-authorID.service";
 import { FindVideoByAuthorIDQuery } from "@packages/core/video/queries/find-video-by-authorID/find-video-by-authorID.query";
 
 export const videoRouter = t.router({

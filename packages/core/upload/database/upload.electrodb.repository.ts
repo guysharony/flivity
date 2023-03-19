@@ -3,15 +3,15 @@ import { Entity } from "electrodb";
 import { Dynamo } from "@packages/core/dynamo";
 import { ElectroDBRepository } from "@packages/libs/base/classes/electrodb.repository";
 
-import { VideoOrmEntity } from "./video.orm.entity";
+import { UploadOrmEntity } from "./upload.orm.entity";
 
-export * as Video from "./video.electrodb.repository";
+export * as Upload from "./upload.electrodb.repository";
 
-export const videoEntity = new Entity(
+export const uploadEntity = new Entity(
   {
     model: {
       version: "1",
-      entity: "Video",
+      entity: "Upload",
       service: "app",
     },
     attributes: {
@@ -19,21 +19,30 @@ export const videoEntity = new Entity(
         type: "string",
         required: true,
       },
-      title: {
-        type: "string",
-        required: false,
-      },
-      description: {
-        type: "string",
-        required: false,
-      },
-      authorID: {
+      uploadID: {
         type: "string",
         required: true,
       },
-      uploadID: {
+      uploadKey: {
         type: "string",
+        required: true,
+      },
+      uploadPart: {
+        type: "number",
+        default: 0,
         required: false,
+      },
+      uploadTotal: {
+        type: "number",
+        required: true,
+      },
+      fileSize: {
+        type: "number",
+        required: true,
+      },
+      fileType: {
+        type: "string",
+        required: true,
       },
     },
     indexes: {
@@ -47,15 +56,15 @@ export const videoEntity = new Entity(
           composite: [],
         },
       },
-      byAuthorID: {
+      byUploadID: {
         index: "gsi1",
         pk: {
           field: "gsi1pk",
-          composite: ["authorID"],
+          composite: ["uploadID"],
         },
         sk: {
           field: "gsi1sk",
-          composite: ["id"],
+          composite: [],
         },
       },
     },
@@ -63,12 +72,12 @@ export const videoEntity = new Entity(
   Dynamo.Configuration
 );
 
-export class VideoElectroDBRepository extends ElectroDBRepository<VideoOrmEntity> {
-  protected readonly entity = videoEntity;
+export class UploadElectroDBRepository extends ElectroDBRepository<UploadOrmEntity> {
+  protected readonly entity = uploadEntity;
 
-  async findByAuthorID(authorID: string): Promise<unknown[]> {
+  async findByUploadID(uploadID: string): Promise<unknown> {
     const result = await this.entity.query
-      .byAuthorID({ authorID: authorID })
+      .byUploadID({ uploadID: uploadID })
       .go();
 
     return result.data;

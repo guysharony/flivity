@@ -11,6 +11,8 @@ import {
   BucketEncryption,
   BucketPolicy,
 } from "aws-cdk-lib/aws-s3";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { S3EventSource } from "aws-cdk-lib/aws-lambda-event-sources";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -58,6 +60,13 @@ const createVideoBucket = (stack: Stack) => {
         versioned: true,
         encryption: BucketEncryption.S3_MANAGED,
         blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+      },
+    },
+    notifications: {
+      objectCreated: {
+        function:
+          "packages/functions/videos/object_created_complete_multipart_upload.handler",
+        events: ["object_created_complete_multipart_upload"],
       },
     },
   });

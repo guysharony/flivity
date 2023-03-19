@@ -45,27 +45,6 @@ export const uploadRouter = t.router({
     .mutation(async (req) => {
       const { id, part, filename } = req.input;
 
-      /*
-      const presignedPostResponse = await createPresignedPost(s3, {
-        Bucket: videoBucket,
-        Key: filename,
-        Fields: {
-          key: filename,
-          "Content-Type": filetype,
-          "x-amz-meta-part-number": part.toString(),
-          "x-amz-meta-upload-id": id,
-          "x-amz-meta-max-parts": Math.ceil(filesize / partsize).toString(),
-        },
-        Conditions: [
-          ["content-length-range", 0, partsize],
-          { "x-amz-meta-part-number": part.toString() },
-          { "x-amz-meta-upload-id": id },
-        ],
-        Expires: 3600,
-      });
-
-      return presignedPostResponse;
-			*/
       const uploadPart = new UploadPartCommand({
         Bucket: videoBucket,
         Key: `video/${filename}`,

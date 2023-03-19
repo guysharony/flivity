@@ -37,8 +37,8 @@ export const uploadRouter = t.router({
   presigned: t.procedure
     .input(
       z.object({
-        part: z.number(),
         id: z.string(),
+        part: z.number(),
         filename: z.string(),
       })
     )

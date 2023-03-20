@@ -9,7 +9,7 @@ import { IUploaderModal } from './UploaderModal.interface';
 const chunkSize = 1024 * 1025 * 5;
 
 const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
-	const initialize = trpc.upload.initialize.useMutation();
+	const initialize = trpc.video.createVideo.useMutation();
 	const presigned = trpc.upload.presigned.useMutation();
 	const complete = trpc.upload.complete.useMutation();
 
@@ -48,35 +48,43 @@ const UploaderModal = ({ title, open, setOpen }: IUploaderModal) => {
 			filename: file.name as string
 		});
 
+		console.log(created);
+
+		/*
+		const created = await initialize.mutateAsync({
+			filename: file.name as string
+		});
+	
 		const parts = await convertToChunks(file, async (chunk: Blob, index: number) => {
 			const { url } = await presigned.mutateAsync({
 				part: index,
 				filename: file.name,
 				id: created.id
 			})
-
+	
 			const headers = new Headers();
 			headers.append("Content-Type", "application/octet-stream");
-
+	
 			const response = await fetch(url, {
 				method: "PUT",
 				headers: headers,
 				body: chunk,
 			});
-
+	
 			const ETag = response.headers.get('etag')!;
-
+	
 			return {
 				ETag: ETag.substring(1, ETag.length - 1),
 				PartNumber: index
 			}
 		});
-
+	
 		await complete.mutateAsync({
 			id: created.id,
 			filename: file.name as string,
 			parts: parts
 		});
+		*/
 
 		onSuccess();
 	}

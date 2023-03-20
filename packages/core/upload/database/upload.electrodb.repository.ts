@@ -32,10 +32,6 @@ export const uploadEntity = new Entity(
         default: 0,
         required: false,
       },
-      uploadTotal: {
-        type: "number",
-        required: true,
-      },
       fileSize: {
         type: "number",
         required: true,

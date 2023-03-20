@@ -10,6 +10,7 @@ import { VideoEntity } from "@packages/core/video/entity/video.entity";
 import { VideoResponse } from "@packages/core/video/dtos/video-response.dto";
 import { FindVideoByAuthorIDService } from "@packages/core/video/queries/find-video-by-authorID/find-video-by-authorID.service";
 import { FindVideoByAuthorIDQuery } from "@packages/core/video/queries/find-video-by-authorID/find-video-by-authorID.query";
+import { isAuthenticated } from "@packages/libs/trpc/procedure";
 
 export const videoRouter = t.router({
   findById: t.procedure
@@ -52,5 +53,22 @@ export const videoRouter = t.router({
 
       const result = await service.handler(query);
       return result.unwrap().map((video) => new VideoResponse(video));
+    }),
+  createVideo: t.procedure
+    .use(isAuthenticated)
+    .input(
+      z.object({
+        filename: z.string(),
+        filesize: z.number(),
+        filetype: z.string(),
+      })
+    )
+    .mutation(async (req) => {
+      const { filename } = req.input;
+      const { userID } = req.ctx.session;
+
+      console.log(filename, userID);
+
+      return {};
     }),
 });

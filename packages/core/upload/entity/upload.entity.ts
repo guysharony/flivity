@@ -6,17 +6,15 @@ import {
   UpdateUploadProps,
 } from "./props/upload.entity-props";
 import { UploadRepository } from "../database/upload.repository";
+import path from "path";
+import { CreateMultipartUploadCommand } from "@aws-sdk/client-s3";
 
-export interface UploadProps extends CreateUploadProps {}
+export interface UploadProps extends Omit<CreateUploadProps, "id"> {}
 
 export class UploadEntity extends EntityBase<UploadProps> {
   protected declare readonly _id: string;
 
   repository = new UploadRepository();
-
-  get uploadID() {
-    return this.props.uploadID;
-  }
 
   get uploadKey() {
     return this.props.uploadKey;
@@ -26,12 +24,16 @@ export class UploadEntity extends EntityBase<UploadProps> {
     return this.props.uploadPart;
   }
 
+  get uploadPartSize() {
+    return 1024 * 1025 * 5;
+  }
+
   get uploadTotal() {
-    return this.props.uploadTotal;
+    return this.fileSize / this.uploadPartSize;
   }
 
   get fileSize() {
-    return this.props.fileSize;
+    return this.props.fileSize!;
   }
 
   get fileType() {
@@ -41,20 +43,25 @@ export class UploadEntity extends EntityBase<UploadProps> {
   static async create(create: CreateUploadProps) {
     const repository = new UploadRepository();
 
+    const multipartUploadCommand = new CreateMultipartUploadCommand({
+      Bucket: videoBucket,
+      Key: key,
+    });
+
+    const response = await s3.send(multipartUploadCommand);
+
     const props: UploadProps = {
-      uploadID: create.uploadID,
       uploadKey: create.uploadKey,
-      uploadTotal: create.uploadTotal,
       fileSize: create.fileSize,
       fileType: create.fileType,
     };
 
-    const user = new UploadEntity({
-      id: KSUID.randomSync().string,
+    const upload = new UploadEntity({
+      id: create.id,
       props: props,
     });
 
-    return await repository.save(user);
+    return await repository.save(upload);
   }
 
   async update(update: UpdateUploadProps) {

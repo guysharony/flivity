@@ -4,6 +4,7 @@ import { Dynamo } from "@packages/core/dynamo";
 import { ElectroDBRepository } from "@packages/libs/base/classes/electrodb.repository";
 
 import { VideoOrmEntity } from "./video.orm.entity";
+import { VideoStatus } from "../enum/status.enum";
 
 export * as Video from "./video.electrodb.repository";
 
@@ -34,6 +35,15 @@ export const videoEntity = new Entity(
       uploadID: {
         type: "string",
         required: false,
+      },
+      status: {
+        type: [
+          VideoStatus.UPLOADING,
+          VideoStatus.DRAFT,
+          VideoStatus.PUBLISHED,
+        ] as const,
+        default: VideoStatus.UPLOADING,
+        required: true,
       },
     },
     indexes: {

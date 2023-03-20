@@ -1,10 +1,9 @@
 export interface CreateUploadProps {
-  uploadID?: string;
-  uploadKey?: string;
-  uploadTotal?: number;
+  id: string;
+  uploadKey: string;
   uploadPart?: number;
-  fileSize?: number;
-  fileType?: string;
+  fileSize: number;
+  fileType: string;
 }
 
 export interface UpdateUploadProps {

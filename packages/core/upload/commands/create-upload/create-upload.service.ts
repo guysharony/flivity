@@ -23,7 +23,6 @@ export class CreateUploadService extends CommandService {
     const upload = await UploadEntity.create({
       uploadID: command.uploadID,
       uploadKey: command.uploadKey,
-      uploadTotal: command.uploadTotal,
       fileSize: command.fileSize,
       fileType: command.fileType,
     });

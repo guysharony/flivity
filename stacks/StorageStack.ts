@@ -44,68 +44,10 @@ const createProfileBucket = (stack: Stack) => {
   return bucket;
 };
 
-const createVideoBucket = (stack: Stack) => {
-  const bucket = new Bucket(stack, "Bucket-Videos", {
-    cors: [
-      {
-        allowedMethods: ["GET", "POST", "PUT"],
-        allowedOrigins: ["*"],
-        allowedHeaders: ["*"],
-        exposedHeaders: ["ETag"],
-      },
-    ],
-    cdk: {
-      bucket: {
-        removalPolicy: RemovalPolicy.DESTROY,
-        versioned: true,
-        encryption: BucketEncryption.S3_MANAGED,
-        blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
-      },
-    },
-    notifications: {
-      objectCreated: {
-        function:
-          "packages/functions/videos/object_created_complete_multipart_upload.handler",
-        events: ["object_created_complete_multipart_upload"],
-      },
-    },
-  });
-
-  bucket.cdk.bucket.addToResourcePolicy(
-    new iam.PolicyStatement({
-      effect: iam.Effect.ALLOW,
-      principals: [new iam.AnyPrincipal()],
-      actions: [
-        "s3:PutObject",
-        "s3:GetObject",
-        "s3:DeleteObject",
-        "s3:ListBucket",
-        "s3:ListMultipartUploadParts",
-        "s3:ListBucketMultipartUploads",
-        "s3:AbortMultipartUpload",
-      ],
-      resources: [bucket.bucketArn, bucket.cdk.bucket.arnForObjects("*")],
-      conditions: {
-        StringEquals: {
-          "s3:DataAccessPointAccount": `${stack.account}`,
-        },
-      },
-    })
-  );
-
-  stack.addOutputs({
-    BUCKET_VIDEOS: bucket.bucketName,
-  });
-
-  return bucket;
-};
-
 export function StorageStack({ stack }: StackContext) {
   const profiles = createProfileBucket(stack);
-  const videos = createVideoBucket(stack);
 
   return {
     profiles,
-    videos,
   };
 }

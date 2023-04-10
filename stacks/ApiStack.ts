@@ -31,7 +31,6 @@ export function ApiStack({ stack, app }: StackContext) {
         environment: {
           REACT_APP_URL: currentDomain,
           REACT_APP_API_URL: apiCustomDomain,
-          BUCKET_VIDEO_NAME: storage.videos.bucketName,
           BUCKET_PROFILE_NAME: storage.profiles.bucketName,
         },
         permissions: [
@@ -41,11 +40,6 @@ export function ApiStack({ stack, app }: StackContext) {
             resources: [
               `arn:aws:ses:${stack.region}:${stack.account}:identity/*`,
             ],
-          }),
-          new iam.PolicyStatement({
-            actions: ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"],
-            effect: iam.Effect.ALLOW,
-            resources: [`arn:aws:s3:::${storage.videos.bucketName}/*`],
           }),
           new iam.PolicyStatement({
             actions: ["s3:GetObject"],

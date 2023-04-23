@@ -5,9 +5,6 @@ import request from "../utils/request";
 export interface ISession {
 	id: string;
 	email: string;
-	username: string;
-	display_name: string;
-	profile_picture: string;
 	email_verified: boolean;
 	account_configured: boolean;
 }
@@ -39,7 +36,7 @@ export const SessionProvider = ({ children }: any) => {
 		return () => {
 			isReady = false
 		};
-	}, [setSession]);
+	}, []);
 
 	if (!ready) {
 		return null;

@@ -36,10 +36,12 @@ function App() {
 	);
 
 	React.useEffect(() => {
+		console.log(session);
+
 		if (session && !session.account_configured && (location.pathname !== '/account_configuration')) {
 			navigate('/account_configuration');
 		}
-	}, [location.pathname, navigate, session])
+	}, [location.pathname, session])
 
 	return (
 		<ConfigProvider>

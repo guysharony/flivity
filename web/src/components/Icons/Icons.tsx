@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Eye from './components/Eye';
 import Play from './components/Play';
 import Home from './components/Home';

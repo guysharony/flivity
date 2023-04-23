@@ -20,10 +20,6 @@ const ProfileHeader = ({ user }: IProfileHeader) => {
 						label: 'Home'
 					},
 					{
-						value: `/${user.username}/videos`,
-						label: 'Videos'
-					},
-					{
 						value: `/${user.username}/about`,
 						label: 'About'
 					}

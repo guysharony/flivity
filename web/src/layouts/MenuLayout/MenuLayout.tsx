@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import useSession from '../../hooks/session.hook';
@@ -30,12 +29,6 @@ export default function MenuLayout({ menu, setMenu }: MenuLayoutProps) {
 											<Icons type='profile' />
 										</div>
 										<span>Profile</span>
-									</Link>
-									<Link to={`/videos`} onClick={setMenu} className={`flex px-1 items-center rounded-3xl ${`/videos` === location.pathname ? 'text-white bg-gray-600 stroke-white' : 'text-gray-600 stroke-gray-600 hover:text-white hover:bg-gray-300 hover:stroke-white'} w-52 h-12 text-left`}>
-										<div className='h-9 w-9 rounded-full overflow-hidden mx-3 stroke-1'>
-											<Icons type='video' />
-										</div>
-										<span>Videos</span>
 									</Link>
 									<Link to={`/settings`} onClick={setMenu} className={`flex px-1 items-center rounded-3xl ${`/settings` === location.pathname ? 'text-white bg-gray-600 fill-white' : 'text-gray-600 fill-gray-600 hover:text-white hover:bg-gray-300 hover:fill-white'} w-52 h-12 text-left`}>
 										<div className='h-9 w-9 rounded-full overflow-hidden mx-3 stroke-1'>

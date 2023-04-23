@@ -1,6 +1,4 @@
-import React from 'react';
 import { IProfileImage } from "./ProfileImage.interface";
-
 
 export default function ProfileImage({ src, alt, className }: IProfileImage) {
 	return (

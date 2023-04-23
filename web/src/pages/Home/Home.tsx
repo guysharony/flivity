@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { UserResponse } from '@packages/core/user/dtos/user-response.dto';
 
 import { trpc } from '../../utils/trpc';

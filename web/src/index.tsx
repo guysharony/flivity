@@ -13,12 +13,7 @@ import Signup from './pages/Signup/Signup';
 import AccountConfiguration from './pages/AccountConfiguration/AccountConfiguration';
 import Profile from './pages/Profile/Profile';
 import ProfileHome from './pages/Profile/components/ProfileHome/ProfileHome';
-import ProfileVideos from './pages/Profile/components/ProfileVideos/ProfileVideos';
 import ProfileAbout from './pages/Profile/components/ProfileAbout/ProfileAbout';
-import Videos from './pages/Videos/Videos';
-import Upload from './pages/Upload/Upload';
-import UploadDetails from './pages/Upload/components/UploadDetails/UploadDetails';
-import UploadVisibility from './pages/Upload/components/UploadVisibility/UploadVisibility';
 
 const router = createBrowserRouter([
 	{
@@ -38,34 +33,12 @@ const router = createBrowserRouter([
 				element: <AccountConfiguration />
 			},
 			{
-				path: '/videos',
-				element: <Videos />
-			},
-			{
-				path: '/upload/:videoID',
-				element: <Upload />,
-				children: [
-					{
-						path: '/upload/:videoID',
-						element: <UploadDetails />,
-					},
-					{
-						path: '/upload/:videoID/visibility',
-						element: <UploadVisibility />,
-					}
-				]
-			},
-			{
 				path: '/:username',
 				element: <Profile />,
 				children: [
 					{
 						path: '/:username',
 						element: <ProfileHome />,
-					},
-					{
-						path: '/:username/videos',
-						element: <ProfileVideos />,
 					},
 					{
 						path: '/:username/about',

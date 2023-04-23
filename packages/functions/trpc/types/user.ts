@@ -22,8 +22,6 @@ import { UpdateUserEmailVerifiedService } from "@packages/core/user/commands/upd
 import { SetupUserCommand } from "@packages/core/user/commands/setup-user/setup-user.command";
 import { SetupUserService } from "@packages/core/user/commands/setup-user/setup-user.service";
 import { UserEntity } from "@packages/core/user/entity/user.entity";
-import { FindUserByUsernameService } from "@packages/core/user/queries/find-user-by-username/find-user-by-username.service";
-import { FindUserByUsernameQuery } from "@packages/core/user/queries/find-user-by-username/find-user-by-username.query";
 
 export const userRouter = t.router({
   findById: t.procedure
@@ -71,33 +69,6 @@ export const userRouter = t.router({
         Err: (error: Error) => {
           if (error instanceof ExceptionBase) {
             return null;
-          }
-
-          throw error;
-        },
-      });
-    }),
-  findByUsername: t.procedure
-    .input(z.object({ username: z.string() }))
-    .query(async (req) => {
-      const { username } = req.input;
-
-      const service = new FindUserByUsernameService();
-
-      const query = new FindUserByUsernameQuery({
-        username: username,
-      });
-
-      const result = await service.handler(query);
-
-      return match(result, {
-        Ok: (user: UserEntity) => new UserResponse(user),
-        Err: (error: Error) => {
-          if (error instanceof ExceptionBase) {
-            throw new TRPCError({
-              code: "NOT_FOUND",
-              message: error.message,
-            });
           }
 
           throw error;

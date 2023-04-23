@@ -65,17 +65,6 @@ export const userEntity = new Entity(
           composite: ["id"],
         },
       },
-      byUsername: {
-        index: "gsi2",
-        pk: {
-          field: "gsi2pk",
-          composite: ["username"],
-        },
-        sk: {
-          field: "gsi2sk",
-          composite: ["id"],
-        },
-      },
     },
   },
   Dynamo.Configuration

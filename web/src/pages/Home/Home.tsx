@@ -19,7 +19,7 @@ function Home() {
 			{
 				user.data &&
 				<div>
-					<span>{`name: ${user.data.displayName}`}</span>
+					<span>{`name: ${user.data.email}`}</span>
 				</div>
 			}
 		</div>

@@ -50,8 +50,6 @@ export const handler = ApiHandler(async () => {
         user: {
           id: user.id,
           email: user.email,
-          username: user.username!,
-          profile_picture: user.profilePicture,
           email_verified: user.hasEmailVerified,
           account_configured: user.hasAccountConfigured,
         },

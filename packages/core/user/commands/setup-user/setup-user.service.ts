@@ -21,18 +21,11 @@ export class SetupUserService extends CommandService {
       return Err(new UserNotFoundError());
     }
 
-    const username = await userRepository.findByUsername(command.username);
-    if (!username.isNone()) {
-      return Err(new UserUsernameAlreadyTaken());
-    }
-
     const user = found.unwrap();
 
     await user.update({
       firstName: command.firstName,
       lastName: command.lastName,
-      displayName: command.displayName,
-      username: command.username,
       hasAccountConfigured: true,
     });
 

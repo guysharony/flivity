@@ -192,25 +192,15 @@ export const userRouter = t.router({
           .string()
           .min(1, { message: "Must be at least 1 characters long." })
           .max(20, { message: "Must be less than 20 characters long." }),
-        displayName: z
-          .string()
-          .min(3, { message: "Must be at least 3 characters long." })
-          .max(20, { message: "Must be less than 20 characters long." }),
-        username: z
-          .string()
-          .min(3, { message: "Must be at least 3 characters long." })
-          .max(20, { message: "Must be less than 20 characters long." }),
       })
     )
     .mutation(async (req) => {
-      const { id, firstName, lastName, displayName, username } = req.input;
+      const { id, firstName, lastName } = req.input;
 
       const command = new SetupUserCommand({
         id: id,
         firstName: firstName,
         lastName: lastName,
-        displayName: displayName,
-        username: username,
       });
 
       const service = new SetupUserService();

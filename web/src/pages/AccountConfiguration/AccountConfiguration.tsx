@@ -18,8 +18,6 @@ const AccountConfiguration = () => {
 		values: {
 			firstName: '',
 			lastName: '',
-			displayName: '',
-			username: ''
 		},
 		errors: {}
 	});
@@ -28,10 +26,7 @@ const AccountConfiguration = () => {
 		onSuccess: (data) => {
 			context.setSession({
 				id: data.id,
-				display_name: data.displayName,
 				email: data.email,
-				username: data.username,
-				profile_picture: data.profilePicture,
 				email_verified: data.hasEmailVerified,
 				account_configured: data.hasAccountConfigured,
 			});
@@ -62,8 +57,6 @@ const AccountConfiguration = () => {
 			id: context.session.id,
 			firstName: form.values.firstName,
 			lastName: form.values.lastName,
-			displayName: form.values.displayName,
-			username: form.values.username,
 		});
 
 		navigate('/');
@@ -93,8 +86,6 @@ const AccountConfiguration = () => {
 						<Input label='First name' className='w-full' type='text' value={form.values.firstName} error={form.errors.firstName} onChange={(v) => onChange('firstName', v)} />
 						<Input label='Last name' className='w-full' type='text' value={form.values.lastName} error={form.errors.lastName} onChange={(v) => onChange('lastName', v)} />
 					</div>
-					<Input label='Display name' type='text' value={form.values.displayName} error={form.errors.displayName} onChange={(v) => onChange('displayName', v)} />
-					<Input label='Username' type='text' value={form.values.username} error={form.errors.username} onChange={(v) => onChange('username', v)} />
 				</div>
 				<button className={`flex items-center justify-center h-14 border bg-blue-800 text-white px-5 w-full rounded-3xl overflow-hidden${loading ? ' pointer-events-none opacity-50' : ''}`} onClick={() => setup()}>Create account</button>
 			</div>

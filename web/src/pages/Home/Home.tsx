@@ -1,8 +1,9 @@
 import { UserResponse } from '@packages/core/user/dtos/user-response.dto';
 
 import { trpc } from '../../utils/trpc';
+import withProtection from 'src/hoc/with-protection.hoc';
 
-export default function Home() {
+function Home() {
 	const user = trpc.user.findById.useQuery<unknown, UserResponse>({
 		id: '2JMTvYRmISgkAovwzyDbbHm50vN'
 	}, {
@@ -24,3 +25,5 @@ export default function Home() {
 		</div>
 	);
 }
+
+export default withProtection(Home, { authenticated: true, configured: false });

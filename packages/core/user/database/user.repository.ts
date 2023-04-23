@@ -32,14 +32,4 @@ export class UserRepository extends OrmRepositoryBase<
 
     return Some(this.domainProperty.toEntity(user[0] as UserOrmEntity));
   }
-
-  async findByUsername(username: string): Promise<Option<UserEntity>> {
-    const user = await this.userRepository.findByUsername(username);
-
-    if (!user.length) {
-      return None;
-    }
-
-    return Some(this.domainProperty.toEntity(user[0] as UserOrmEntity));
-  }
 }

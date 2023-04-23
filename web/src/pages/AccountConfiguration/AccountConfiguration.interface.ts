@@ -7,15 +7,11 @@ export interface AccountConfigurationProps {
 export interface FormValues {
   firstName: string;
   lastName: string;
-  displayName: string;
-  username: string;
 }
 
 export interface FormErrors {
   firstName: string[];
   lastName: string[];
-  displayName: string[];
-  username: string[];
 }
 
 export interface Form {

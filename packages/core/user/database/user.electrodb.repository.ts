@@ -28,18 +28,6 @@ export const userEntity = new Entity(
         type: "string",
         required: false,
       },
-      displayName: {
-        type: "string",
-        required: false,
-      },
-      profilePicture: {
-        type: "string",
-        required: false,
-      },
-      username: {
-        type: "string",
-        required: false,
-      },
       email: {
         type: "string",
         required: true,
@@ -98,12 +86,6 @@ export class UserElectroDBRepository extends ElectroDBRepository<UserOrmEntity> 
 
   async findByEmail(email: string): Promise<unknown[]> {
     const result = await this.entity.query.byEmail({ email }).go();
-
-    return result.data;
-  }
-
-  async findByUsername(username: string): Promise<unknown[]> {
-    const result = await this.entity.query.byUsername({ username }).go();
 
     return result.data;
   }

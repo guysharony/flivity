@@ -7,10 +7,7 @@ export class UserOrmEntity extends OrmEntityBase {
 
   declare firstName?: string;
   declare lastName?: string;
-  declare displayName?: string;
-  declare profilePicture?: string;
   declare email: string;
-  declare username?: string;
   declare hasEmailVerified?: boolean;
   declare hasAccountConfigured?: boolean;
 }

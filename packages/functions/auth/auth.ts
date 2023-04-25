@@ -102,7 +102,7 @@ export const handler = ApiHandler(async (event, context) => {
           return {
             statusCode: 302,
             headers: {
-              location: `${process.env.REACT_APP_URL}`,
+              location: `${process.env.VITE_APP_URL}`,
             },
             cookies: [
               `session-token=${sessionToken.token}; HttpOnly; SameSite=None; Secure; Path=/; Expires=${sessionToken.maxAge}`,

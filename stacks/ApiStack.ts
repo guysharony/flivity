@@ -2,11 +2,9 @@ import { use, StackContext, Api as ApiGateway, Config } from "sst/constructs";
 import * as iam from "aws-cdk-lib/aws-iam";
 
 import { DatabaseStack } from "./DatabaseStack";
-import { StorageStack } from "./StorageStack";
 
 export function ApiStack({ stack, app }: StackContext) {
   const table = use(DatabaseStack);
-  const storage = use(StorageStack);
 
   const FLIVITY_KEY = new Config.Secret(stack, "FLIVITY_KEY");
 
@@ -29,9 +27,8 @@ export function ApiStack({ stack, app }: StackContext) {
         architecture: "arm_64",
         bind: [table],
         environment: {
-          REACT_APP_URL: currentDomain,
-          REACT_APP_API_URL: apiCustomDomain,
-          BUCKET_PROFILE_NAME: storage.profiles.bucketName,
+          VITE_APP_URL: currentDomain,
+          VITE_APP_API_URL: apiCustomDomain,
         },
         permissions: [
           new iam.PolicyStatement({
@@ -40,11 +37,6 @@ export function ApiStack({ stack, app }: StackContext) {
             resources: [
               `arn:aws:ses:${stack.region}:${stack.account}:identity/*`,
             ],
-          }),
-          new iam.PolicyStatement({
-            actions: ["s3:GetObject"],
-            effect: iam.Effect.ALLOW,
-            resources: [`arn:aws:s3:::${storage.profiles.bucketName}/*`],
           }),
         ],
       },
@@ -76,7 +68,7 @@ export function ApiStack({ stack, app }: StackContext) {
   api.bind([FLIVITY_KEY]);
 
   stack.addOutputs({
-    REACT_APP_API_URL: api.url,
+    VITE_APP_API_URL: api.url,
   });
 
   return api;

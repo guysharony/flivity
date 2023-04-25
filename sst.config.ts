@@ -1,10 +1,10 @@
 import { SSTConfig } from "sst";
-import { StorageStack } from "./stacks/StorageStack";
 import { ApiStack } from "./stacks/ApiStack";
 import { AuthStack } from "./stacks/AuthStack";
 import { DatabaseStack } from "./stacks/DatabaseStack";
 import { DnsStack } from "./stacks/DnsStack";
-import { FrontendStack } from "./stacks/FrontendStack";
+import { ApplicationStack } from "./stacks/ApplicationStack";
+import { HomeStack } from "./stacks/HomeStack";
 
 export default {
   config(_input) {
@@ -24,11 +24,11 @@ export default {
     });
 
     app
-      .stack(StorageStack)
       .stack(DnsStack)
       .stack(DatabaseStack)
       .stack(ApiStack)
       .stack(AuthStack)
-      .stack(FrontendStack);
+      .stack(ApplicationStack)
+      .stack(HomeStack);
   },
 } satisfies SSTConfig;

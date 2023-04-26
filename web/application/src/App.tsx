@@ -16,8 +16,6 @@ import './App.css';
 function App() {
 	const [menu, setMenu] = useState<boolean>(false);
 
-	console.log(import.meta.env);
-
 	const [queryClient] = useState(() => new QueryClient());
 	const [trpcClient] = useState(() =>
 		trpc.createClient({

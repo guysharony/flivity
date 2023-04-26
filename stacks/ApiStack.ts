@@ -23,7 +23,7 @@ export function ApiStack({ stack, app }: StackContext) {
       allowCredentials: true,
       allowHeaders: ["content-type", "authorization"],
       allowMethods: ["ANY"],
-      allowOrigins: [homeDomain],
+      allowOrigins: [homeDomain, applicationDomain],
     },
     defaults: {
       function: {
@@ -72,7 +72,7 @@ export function ApiStack({ stack, app }: StackContext) {
   api.bind([FLIVITY_KEY]);
 
   stack.addOutputs({
-    VITE_APP_API_URL: api.url,
+    API: `https://${apiDomain}`,
   });
 
   return api;

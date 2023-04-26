@@ -8,27 +8,31 @@ export function ApiStack({ stack, app }: StackContext) {
 
   const FLIVITY_KEY = new Config.Secret(stack, "FLIVITY_KEY");
 
-  const apiCustomDomain =
+  const apiDomain =
     app.stage === "prod" ? "api.flivity.com" : `api.${app.stage}.flivity.com`;
 
-  const currentDomain =
+  const homeDomain =
     app.stage === "prod" ? "https://flivity.com" : "http://localhost:3000";
 
+  const applicationDomain =
+    app.stage === "prod" ? "https://app.flivity.com" : "http://localhost:3001";
+
   const api = new ApiGateway(stack, "api", {
-    customDomain: apiCustomDomain,
+    customDomain: apiDomain,
     cors: {
       allowCredentials: true,
       allowHeaders: ["content-type", "authorization"],
       allowMethods: ["ANY"],
-      allowOrigins: [currentDomain],
+      allowOrigins: [homeDomain],
     },
     defaults: {
       function: {
         architecture: "arm_64",
         bind: [table],
         environment: {
-          VITE_APP_URL: currentDomain,
-          VITE_APP_API_URL: apiCustomDomain,
+          VITE_APPLICATION_URL: applicationDomain,
+          VITE_HOME_URL: homeDomain,
+          VITE_API_URL: apiDomain,
         },
         permissions: [
           new iam.PolicyStatement({

@@ -7,14 +7,14 @@ export function ApplicationStack({ stack, app }: StackContext) {
   const api = use(ApiStack);
   const dns = use(DnsStack);
 
-  const currentDomain =
+  const applicationDomain =
     app.stage === "prod" ? "https://app.flivity.com" : "http://localhost:3001";
 
   const site = new StaticSite(stack, "application", {
     path: "web/application",
     environment: {
-      VITE_APP_API_URL: api.customDomainUrl || api.url,
-      VITE_APP_URL: currentDomain,
+      VITE_API_URL: api.customDomainUrl || api.url,
+      VITE_APPLICATION_URL: applicationDomain,
     },
     buildOutput: "build",
     buildCommand: "npm run build",
@@ -31,7 +31,7 @@ export function ApplicationStack({ stack, app }: StackContext) {
   });
 
   stack.addOutputs({
-    APPLICATION: currentDomain,
+    APPLICATION: applicationDomain,
   });
 
   return site;

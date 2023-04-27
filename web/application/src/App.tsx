@@ -6,6 +6,7 @@ import { httpBatchLink } from '@trpc/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { trpc } from './utils/trpc';
+import request from './utils/request';
 
 import MenuLayout from './layouts/MenuLayout/MenuLayout';
 import BodyLayout from './layouts/BodyLayout/BodyLayout';
@@ -23,16 +24,7 @@ function App() {
 				httpBatchLink({
 					url: '/trpc',
 					fetch(url, options) {
-						return fetch(url, {
-							...options,
-							credentials: 'include',
-						});
-					},
-					headers() {
-						return {
-							Authorization: `Bearer thisisatoken`,
-							Accept: 'application/json, text/plain, /*',
-						};
+						return request.api.call({ isTrpc: true, }, url, options);
 					},
 				}),
 			],

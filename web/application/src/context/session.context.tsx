@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+
 import request from "../utils/request";
 
 export interface ISession {
@@ -16,7 +17,7 @@ export interface IContext {
 export const SessionContext = createContext<any>(undefined);
 
 export const SessionProvider = ({ children }: any) => {
-	const [ready, setReady] = useState<boolean>(true);
+	const [ready, setReady] = useState<boolean>(false);
 	const [session, setSession] = useState<ISession | undefined>(undefined);
 
 	const init = (value: React.SetStateAction<ISession | undefined>) => {
@@ -27,21 +28,15 @@ export const SessionProvider = ({ children }: any) => {
 	React.useEffect(() => {
 		let isReady = true;
 
-		console.log(import.meta.env);
-
-		request(import.meta.env);
-
-		/*
 		request.initialize(isReady, init)
 			.catch((err) => {
 				console.log(err);
 			});
-			*/
 
 		return () => {
 			isReady = false
 		};
-	}, []);
+	}, [setSession]);
 
 	if (!ready) {
 		return null;

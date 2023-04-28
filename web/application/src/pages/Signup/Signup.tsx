@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { trpc } from '../../utils/trpc';
+import request from '../../utils/request';
 
 import Input from '../../components/Input/Input';
 
@@ -45,11 +46,9 @@ const Signup = () => {
 			email: form.values.email,
 		});
 
-		/*
 		await request.api(`/auth/link/authorize?email=${form.values.email}`, {
 			method: "POST"
 		});
-		*/
 
 		setSent(true);
 	}
@@ -84,10 +83,10 @@ const Signup = () => {
 							<div className='mb-10'>
 								<span className='text-3xl text-slate-900'>Sign up</span>
 							</div>
-							<div className='flex flex-col mb-10 gap-4'>
+							<div className={`flex flex-col mb-10 gap-4${loading ? ' pointer-events-none opacity-50' : ''}`}>
 								<Input label='Email' type='text' value={form.values.email} error={form.errors.email} onChange={(v) => onChange('email', v)} />
 							</div>
-							<button className={`flex items-center justify-center h-14 border bg-blue-800 text-white px-5 w-full rounded-3xl overflow-hidden${loading ? ' pointer-events-none opacity-50' : ''}`} onClick={() => authenticate()}>Sign up</button>
+							<button className={`flex items-center justify-center h-14 border bg-blue-800 text-white px-5 w-full rounded-3xl overflow-hidden${loading ? ' pointer-events-none opacity-50' : ''}`} disabled={loading} onClick={() => authenticate()}>Sign up</button>
 							<div className='mt-10'>
 								<span className='text-base text-slate-900'>Already have an account? <Link className='text-blue-800' to={'/signin'}>Sign in</Link></span>
 							</div>

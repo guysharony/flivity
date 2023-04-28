@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-//import request from '../../utils/request';
+import request from '../../utils/request';
 
 import Input from '../../components/Input/Input';
 
 import { Form } from './Signin.interface';
-import withProtection from 'src/hoc/with-protection.hoc';
+import withProtection from '../../hoc/with-protection.hoc';
 
 function Signin() {
 	const [loading, setLoading] = useState<boolean>(false);
@@ -22,11 +22,9 @@ function Signin() {
 		setLoading(true);
 
 		try {
-			/*
 			await request.api(`/auth/link/authorize?email=${form.values.email}`, {
 				method: "POST"
 			});
-			*/
 
 			setSent(true);
 		} catch (error: any) {

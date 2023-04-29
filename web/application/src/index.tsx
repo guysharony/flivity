@@ -10,7 +10,6 @@ import './index.css';
 import Home from './pages/Home/Home';
 import Signin from './pages/Signin/Signin';
 import Signup from './pages/Signup/Signup';
-import AccountConfiguration from './pages/AccountConfiguration/AccountConfiguration';
 
 const router = createBrowserRouter([
 	{
@@ -24,10 +23,6 @@ const router = createBrowserRouter([
 			{
 				path: '/signup',
 				element: <Signup />
-			},
-			{
-				path: '/account_configuration',
-				element: <AccountConfiguration />
 			},
 			{
 				path: '/',

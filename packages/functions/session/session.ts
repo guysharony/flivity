@@ -55,8 +55,8 @@ export const handler = ApiHandler(async () => {
         },
       }),
     };
-  } catch (err) {
-    console.log("error session: ", err);
+  } catch (error) {
+    console.log("error session: ", error);
     return {
       statusCode: 403,
       cookies: [

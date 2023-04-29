@@ -11,8 +11,6 @@ import './App.css';
 function App() {
 	const [menu, setMenu] = useState<boolean>(false);
 
-	console.log(import.meta.env);
-
 	return (
 		<ConfigProvider>
 			<HeaderLayout setMenu={() => setMenu(!menu)} />

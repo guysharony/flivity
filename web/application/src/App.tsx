@@ -37,10 +37,10 @@ function App() {
 				<QueryClientProvider client={queryClient}>
 					<HeaderLayout setMenu={() => setMenu(!menu)} />
 					<div className='flex overflow-hidden flex-auto'>
+						<MenuLayout menu={menu} setMenu={() => setMenu(!menu)} />
 						<BodyLayout>
 							<Outlet />
 						</BodyLayout>
-						<MenuLayout menu={menu} setMenu={() => setMenu(!menu)} />
 					</div>
 				</QueryClientProvider>
 			</trpc.Provider>

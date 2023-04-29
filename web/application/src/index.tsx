@@ -10,6 +10,8 @@ import './index.css';
 import Home from './pages/Home/Home';
 import Signin from './pages/Signin/Signin';
 import Signup from './pages/Signup/Signup';
+import Comments from './pages/Comments/Comments';
+import Settings from './pages/Settings/Settings';
 
 const router = createBrowserRouter([
 	{
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
 			{
 				path: '/',
 				element: <Home />,
+			},
+			{
+				path: '/comments',
+				element: <Comments />,
+			},
+			{
+				path: '/settings',
+				element: <Settings />,
 			}
 		],
 	},

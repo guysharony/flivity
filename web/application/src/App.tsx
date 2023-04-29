@@ -15,7 +15,7 @@ import HeaderLayout from './layouts/HeaderLayout/HeaderLayout';
 import './App.css';
 
 function App() {
-	const [menu, setMenu] = useState<boolean>(false);
+	const [menu, setMenu] = useState<boolean>(true);
 
 	const [queryClient] = useState(() => new QueryClient());
 	const [trpcClient] = useState(() =>
@@ -37,7 +37,7 @@ function App() {
 				<QueryClientProvider client={queryClient}>
 					<HeaderLayout setMenu={() => setMenu(!menu)} />
 					<div className='flex overflow-hidden flex-auto'>
-						<MenuLayout menu={menu} setMenu={() => setMenu(!menu)} />
+						<MenuLayout menu={menu} />
 						<BodyLayout>
 							<Outlet />
 						</BodyLayout>

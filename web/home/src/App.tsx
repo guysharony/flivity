@@ -12,7 +12,19 @@ function App() {
 	const [menu, setMenu] = useState<boolean>(false);
 
 	return (
-		<ConfigProvider>
+		<ConfigProvider theme={
+			{
+				token: {
+					colorPrimary: "#004bb5",
+					fontSize: 14,
+					borderRadius: 6,
+				},
+				components: {
+					Button: {
+						colorLink: "#004bb5"
+					}
+				}
+			}}>
 			<HeaderLayout setMenu={() => setMenu(!menu)} />
 			<div className='flex overflow-hidden flex-auto'>
 				<BodyLayout>
@@ -20,7 +32,7 @@ function App() {
 				</BodyLayout>
 				<MenuLayout menu={menu} setMenu={() => setMenu(!menu)} />
 			</div>
-		</ConfigProvider>
+		</ConfigProvider >
 	);
 }
 

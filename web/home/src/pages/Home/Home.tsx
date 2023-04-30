@@ -1,6 +1,9 @@
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+	const navigate = useNavigate();
+
 	return (
 		<div>
 			<div className="flex flex-col text-center py-24">
@@ -9,8 +12,8 @@ function Home() {
 					<span className="text-2xl text-gray-600">Lorem ipsum dolor sit amet, consectetur.</span>
 				</div>
 				<div className="flex gap-2 mb-10 items-center justify-center">
-					<Button size="large" shape="round" className="text-blue-800 border-blue-800">Start now</Button>
-					<Button type="text" size="large" shape="round" className="text-blue-800">Contact us</Button>
+					<Button type="primary" size="large" shape='round' href={new URL('/signin', import.meta.env.VITE_APPLICATION_URL).href} ghost>Start now</Button>
+					<Button type="link" size="large" onClick={() => navigate('/contact-us')}>Contact us</Button>
 				</div>
 				<div className="w-full h-96 border-dashed border-black border rounded">
 

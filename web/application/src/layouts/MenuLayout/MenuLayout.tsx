@@ -9,7 +9,7 @@ export default function MenuLayout({ menu }: MenuLayoutProps) {
 	const location = useLocation();
 	const { session } = useSession();
 
-	if (!menu) {
+	if (!menu || !session) {
 		return null;
 	}
 
@@ -31,23 +31,18 @@ export default function MenuLayout({ menu }: MenuLayoutProps) {
 					</Link>
 				</div>
 				<div className='flex mt-auto flex-col gap-1 px-2'>
-					{
-						session &&
-						<>
-							<Link to={`/settings`} className={`flex px-1 items-center rounded-3xl ${`/settings` === location.pathname ? 'text-white bg-gray-600 fill-white' : 'text-gray-600 fill-gray-600 hover:text-white hover:bg-gray-300 hover:fill-white'} w-52 h-12 text-left`}>
-								<div className='h-9 w-9 flex items-center justify-center overflow-hidden mx-3 mr-5 stroke-1'>
-									<AiOutlineSetting size={25} />
-								</div>
-								<span>Settings</span>
-							</Link>
-							<button className='flex px-1 items-center rounded-3xl text-gray-600 stroke-gray-600 text-base w-52 h-12 text-left hover:text-white hover:bg-gray-300 hover:stroke-white'>
-								<div className='h-9 w-9 flex items-center justify-center overflow-hidden mx-3 mr-5 stroke-1'>
-									<AiOutlineLogout size={25} />
-								</div>
-								<span>Logout</span>
-							</button>
-						</>
-					}
+					<Link to={`/settings`} className={`flex px-1 items-center rounded-3xl ${`/settings` === location.pathname ? 'text-white bg-gray-600 fill-white' : 'text-gray-600 fill-gray-600 hover:text-white hover:bg-gray-300 hover:fill-white'} w-52 h-12 text-left`}>
+						<div className='h-9 w-9 flex items-center justify-center overflow-hidden mx-3 mr-5 stroke-1'>
+							<AiOutlineSetting size={25} />
+						</div>
+						<span>Settings</span>
+					</Link>
+					<button className='flex px-1 items-center rounded-3xl text-gray-600 stroke-gray-600 text-base w-52 h-12 text-left hover:text-white hover:bg-gray-300 hover:stroke-white'>
+						<div className='h-9 w-9 flex items-center justify-center overflow-hidden mx-3 mr-5 stroke-1'>
+							<AiOutlineLogout size={25} />
+						</div>
+						<span>Logout</span>
+					</button>
 				</div>
 			</div>
 		</div>

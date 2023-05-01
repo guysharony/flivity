@@ -1,3 +1,4 @@
+import { Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { AiOutlineMenu } from "react-icons/ai";
 
@@ -19,7 +20,7 @@ export default function HeaderLayout({ setMenu }: HeaderLayoutProps) {
 						<div className='flex justify-start lg:w-0 lg:flex-1'>
 							{
 								session &&
-								<button className='h-9 w-9 mr-4 flex items-center justify-center rounded-full overflow-hidden' onClick={() => setMenu()}>
+								<button className='h-9 w-9 mr-4 flex items-center justify-center rounded-full border-none bg-transparent cursor-pointer overflow-hidden' onClick={() => setMenu()}>
 									<AiOutlineMenu size={25} />
 								</button>
 							}
@@ -29,15 +30,12 @@ export default function HeaderLayout({ setMenu }: HeaderLayoutProps) {
 								</div>
 							</Link>
 						</div>
-						<div className='space-x-10 md:flex'>
-							<div className='flex items-center h-10 border border-gray-400 px-5 w-80 rounded-3xl overflow-hidden'>
-								<input type="text" className='search_input w-full h-full font-light outline-none text-gray-800 text-base' autoCapitalize="none" autoComplete="off" autoCorrect="off" required />
-								<label className='absolute pointer-events-none text-gray-500 font-light text-base'>Search</label>
-							</div>
+						<div className='space-x-10 md:flex w-full max-w-sm'>
+							<Input placeholder='Search' size='large' type='primary' />
 						</div>
 						<div className='flex justify-end lg:w-0 lg:flex-1 gap-3'>
 							{
-								!session && <Link to={'/signin'} className='flex items-center h-10 px-4 rounded-3xl text-blue-800 border-blue-800 border font-light text-base bg-white'>Sign in</Link>
+								!session && <Button size="large" shape='round' href={'/signin'} type="primary" ghost>Sign in</Button>
 							}
 						</div>
 					</div>

@@ -56,6 +56,11 @@ export function ApiStack({ stack, app }: StackContext) {
           handler: "packages/functions/session/session.handler",
         },
       },
+      "GET /logout": {
+        function: {
+          handler: "packages/functions/logout/logout.handler",
+        },
+      },
       "GET /trpc/{proxy+}": {
         function: {
           handler: "packages/functions/trpc/trpc.handler",

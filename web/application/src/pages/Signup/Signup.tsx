@@ -1,22 +1,13 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Button, Form, Input } from 'antd';
 
 import { trpc } from '../../utils/trpc';
 import request from '../../utils/request';
 
-import Input from '../../components/Input/Input';
-
-import { Form } from './Signup.interface';
 import withProtection from '../../hoc/with-protection.hoc';
 
 const Signup = () => {
 	const [loading, setLoading] = useState<boolean>(false);
-	const [form, setForm] = useState<Form>({
-		values: {
-			email: '',
-		},
-		errors: {}
-	});
 	const [sent, setSent] = useState<boolean>(false);
 
 	const createUser = trpc.user.create.useMutation({
@@ -31,40 +22,31 @@ const Signup = () => {
 				return;
 			}
 
-			setForm({
-				values: form.values,
-				errors: field_errors
-			});
 			setLoading(false);
 		}
 	});
 
-	const authenticate = async () => {
+	const [form] = Form.useForm<{ email: string; }>();
+
+	const onFinish = async (event: any) => {
 		setLoading(true);
-
+		console.log(event);
 		await createUser.mutateAsync({
-			email: form.values.email,
+			email: event.email,
 		});
-
-		await request.api(`/auth/link/authorize?email=${form.values.email}`, {
+		await request.api(`/auth/link/authorize?email=${event.email}`, {
 			method: "POST"
 		});
-
 		setSent(true);
 	}
 
-	const onChange = (name: string, value: string) => {
-		setForm({
-			values: {
-				...form.values,
-				[name]: value
-			},
-			errors: {
-				...form.errors,
-				[name]: undefined
-			}
-		});
-	}
+	/* eslint-disable no-template-curly-in-string */
+	const validateMessages = {
+		required: '${label} is required.',
+		types: {
+			email: '${label} is not a valid email.',
+		},
+	};
 
 	return (
 		<div className='flex flex-col justify-center items-center mx-auto max-w-md h-full'>
@@ -76,19 +58,44 @@ const Signup = () => {
 								<span className='text-3xl text-slate-900'>Check your inbox</span>
 							</div>
 							<div className='mt-10'>
-								<span className='text-base text-slate-900'>{`Please, click on the link we have sent to ${form.values.email} to continue.`}</span>
+								<span className='text-base text-slate-900'>{`Please, click on the link we have sent to ${form.getFieldValue('email')} to continue.`}</span>
 							</div>
 						</>
 						: <>
-							<div className='mb-10'>
-								<span className='text-3xl text-slate-900'>Sign up</span>
+							<div className="mb-10">
+								<h1 className="text-5xl mb-10">Sign up</h1>
+								<span className="text-base text-gray-600">Enter email address you want to use with your account.</span>
 							</div>
-							<div className={`flex flex-col mb-10 gap-4${loading ? ' pointer-events-none opacity-50' : ''}`}>
-								<Input label='Email' type='text' value={form.values.email} error={form.errors.email} onChange={(v) => onChange('email', v)} />
+							<div className='text-left'>
+								<Form
+									layout="vertical"
+									disabled={loading}
+									onFinish={onFinish}
+									form={form}
+									validateMessages={validateMessages}
+								>
+									<Form.Item
+										label="Email"
+										name="email"
+										rules={[
+											{ required: true, type: 'email' }
+										]}>
+										<Input
+											size={'large'}
+											disabled={loading} />
+									</Form.Item>
+									<Form.Item>
+										<Button
+											type={'primary'}
+											size={'large'}
+											htmlType={"submit"}
+											disabled={loading}
+											className='w-full'>Sign up</Button>
+									</Form.Item>
+								</Form>
 							</div>
-							<button className={`flex items-center justify-center h-14 border bg-blue-800 text-white px-5 w-full rounded-3xl overflow-hidden${loading ? ' pointer-events-none opacity-50' : ''}`} disabled={loading} onClick={() => authenticate()}>Sign up</button>
-							<div className='mt-10'>
-								<span className='text-base text-slate-900'>Already have an account? <Link className='text-blue-800' to={'/signin'}>Sign in</Link></span>
+							<div className='text-left'>
+								<span className='text-base text-slate-700'>Already have an account? <Button size='large' href='/signin' type='link'>sign in</Button></span>
 							</div>
 						</>
 				}

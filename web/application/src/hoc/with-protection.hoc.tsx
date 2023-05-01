@@ -33,7 +33,7 @@ const withProtection = <T extends Record<string, any>>(
 		}
 
 		if (mustAuthenticated === true && isAuthentiated === false) {
-			return <Navigate to='/signup' />;
+			return <Navigate to='/signin' />;
 		}
 
 		if (

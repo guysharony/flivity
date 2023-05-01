@@ -24,6 +24,19 @@ const request = () => {
     return data;
   };
 
+  const removeSession = async () => {
+    const url = getApiUrl("/logout");
+
+    const response = await fetch(url, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return data;
+  };
+
   return {
     get initialized() {
       return initialized;
@@ -45,6 +58,16 @@ const request = () => {
       if (isReady) {
         setSession(user as ISession);
       }
+
+      initialized = true;
+    },
+    logout: async (setSession: (value: ISession | undefined) => void) => {
+      await removeSession();
+
+      user = undefined;
+      accessToken = undefined;
+
+      setSession(undefined);
 
       initialized = true;
     },

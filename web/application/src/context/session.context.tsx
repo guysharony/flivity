@@ -12,6 +12,7 @@ export interface ISession {
 export interface IContext {
 	session?: ISession;
 	setSession: React.Dispatch<React.SetStateAction<ISession | undefined>>;
+	removeSession: () => Promise<void>;
 }
 
 export const SessionContext = createContext<any>(undefined);
@@ -23,6 +24,10 @@ export const SessionProvider = ({ children }: any) => {
 	const init = (value: React.SetStateAction<ISession | undefined>) => {
 		setReady(true);
 		setSession(value);
+	}
+
+	const removeSession = async () => {
+		await request.logout(init);
 	}
 
 	React.useEffect(() => {
@@ -46,6 +51,7 @@ export const SessionProvider = ({ children }: any) => {
 		<SessionContext.Provider value={{
 			session: session,
 			setSession: setSession,
+			removeSession: removeSession
 		}}>
 			{children}
 		</SessionContext.Provider>

@@ -32,7 +32,19 @@ function App() {
 	);
 
 	return (
-		<ConfigProvider>
+		<ConfigProvider theme={
+			{
+				token: {
+					colorPrimary: "#004bb5",
+					fontSize: 14,
+					borderRadius: 6,
+				},
+				components: {
+					Button: {
+						colorLink: "#004bb5"
+					}
+				}
+			}}>
 			<trpc.Provider client={trpcClient} queryClient={queryClient}>
 				<QueryClientProvider client={queryClient}>
 					<HeaderLayout setMenu={() => setMenu(!menu)} />

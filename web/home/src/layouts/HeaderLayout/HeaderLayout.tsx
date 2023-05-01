@@ -1,12 +1,11 @@
+import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 import logo from 'src/static/logo.png';
 
 import './HeaderLayout.style.css';
-import { HeaderLayoutProps } from './HeaderLayout.interface';
-import { Button } from 'antd';
 
-export default function HeaderLayout({ setMenu }: HeaderLayoutProps) {
+export default function HeaderLayout() {
 	return (
 		<div className='top-0 w-full bg-white' style={{ zIndex: 1000 }}>
 			<div className='mx-auto px-4 sm:px-6'>

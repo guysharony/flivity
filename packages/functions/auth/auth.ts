@@ -21,7 +21,6 @@ export const handler = ApiHandler(async (event, context) => {
     providers: {
       link: LinkAdapter({
         onLink: async function (link, claims) {
-          console.log("Link: ", link, claims);
           const url = new URL(link);
           const params = new URLSearchParams(url.search);
           const token = params.get("token");
@@ -56,6 +55,7 @@ export const handler = ApiHandler(async (event, context) => {
             token: token,
           });
 
+          console.log("Link: ", link, claims);
           //await ses.confirmEmail(claims.email, link);
 
           return {

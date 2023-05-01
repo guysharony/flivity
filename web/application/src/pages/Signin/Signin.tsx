@@ -13,10 +13,22 @@ const Signin = () => {
 
 	const onFinish = async (event: any) => {
 		setLoading(true);
-		await request.api(`/auth/link/authorize?email=${event.email}`, {
-			method: "POST"
-		});
-		setSent(true);
+		try {
+			await request.api(`/auth/link/authorize?email=${event.email}`, {
+				method: "POST"
+			});
+			setSent(true);
+		} catch (e: any) {
+			if ('email' in e) {
+				form.setFields([
+					{
+						name: 'email',
+						errors: [e.email],
+					},
+				]);
+			}
+		}
+		setLoading(false);
 	}
 
 	/* eslint-disable no-template-curly-in-string */

@@ -1,5 +1,5 @@
 import { ApiHandler } from "sst/node/api";
-import { AuthHandler, LinkAdapter } from "sst/node/auth";
+import { AuthHandler, FacebookAdapter, LinkAdapter } from "sst/node/auth";
 
 import { SESClient } from "@packages/libs/client/ses.client";
 
@@ -19,6 +19,22 @@ const ses = new SESClient();
 export const handler = ApiHandler(async (event, context) => {
   return AuthHandler({
     providers: {
+      facebook: FacebookAdapter({
+        clientID: "<client-id>",
+        clientSecret: "<client-secret>",
+        scope: "<space separated list of scopes>",
+        onSuccess: async (tokenset) => {
+          console.log(tokenset);
+
+          return {
+            statusCode: 200,
+            headers: {
+              location: `${process.env.VITE_APPLICATION_URL}`,
+            },
+            cookies: [],
+          };
+        },
+      }),
       link: LinkAdapter({
         onLink: async function (link, claims) {
           const url = new URL(link);
